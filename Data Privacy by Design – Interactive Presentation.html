@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Privacy by Design – Digital Financial Advisor</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root{--p:#1a73e8;--pd:#0d47a1;--bg:#f0f4f8;--card:#fff;--muted:#64748b;--border:#e2e8f0;--sw:255px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#1e293b;display:flex;min-height:100vh}
+  #sb{width:var(--sw);background:linear-gradient(160deg,#0d47a1,#1565c0 60%,#0097a7);color:#fff;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;display:flex;flex-direction:column}
+  #sb .brand{padding:22px 18px 14px;border-bottom:1px solid rgba(255,255,255,.15)}
+  #sb .brand h2{font-size:.95rem;font-weight:700;line-height:1.4}
+  #sb .brand p{font-size:.7rem;opacity:.7;margin-top:3px}
+  #sb nav a{display:flex;align-items:center;gap:8px;padding:9px 18px;color:rgba(255,255,255,.82);text-decoration:none;font-size:.82rem;border-left:3px solid transparent;transition:all .2s;cursor:pointer}
+  #sb nav a:hover,#sb nav a.active{background:rgba(255,255,255,.12);color:#fff;border-left-color:#80deea}
+  #sb nav .grp{padding:8px 18px 3px;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;opacity:.5}
+  #main{margin-left:var(--sw);flex:1;padding:30px 34px}
+  .pg{display:none;animation:fi .3s ease}.pg.active{display:block}
+  @keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .hero{background:linear-gradient(135deg,#1a73e8,#0097a7);border-radius:14px;padding:36px 44px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden}
+  .hero::after{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.07)}
+  .hero h1{font-size:1.75rem;font-weight:800;margin-bottom:6px}
+  .hero p{font-size:.9rem;opacity:.88;max-width:540px;line-height:1.6}
+  .hero .meta{display:flex;gap:16px;margin-top:16px;flex-wrap:wrap}
+  .hero .meta span{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 12px;font-size:.78rem}
+  .card{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:22px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .card h3{font-size:.95rem;font-weight:700;margin-bottom:12px;color:var(--pd);display:flex;align-items:center;gap:7px}
+  .sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px;margin-bottom:20px}
+  .sc{background:var(--card);border-radius:12px;padding:16px;border:1px solid var(--border);text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+  .sc .v{font-size:1.7rem;font-weight:800;color:var(--p)}.sc .l{font-size:.72rem;color:var(--muted);margin-top:3px}
+  .tw{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:.8rem}
+  th{background:#e3f2fd;color:var(--pd);font-weight:700;padding:9px 11px;text-align:left}
+  td{padding:8px 11px;border-bottom:1px solid var(--border);vertical-align:top}
+  tr:hover td{background:#f8faff}
+  .b{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.7rem;font-weight:600}
+  .bd{background:#fce4ec;color:#c62828}.bi{background:#fff3e0;color:#e65100}
+  .bs{background:#f3e5f5;color:#6a1b9a}.bn{background:#e8f5e9;color:#2e7d32}
+  .cg{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+  .cb{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .cb h4{font-size:.82rem;font-weight:700;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em}
+  .cb canvas{max-height:220px}
+  .tg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .tc{border-radius:12px;padding:16px;border-left:5px solid}
+  .tL{border-color:#e53935;background:#fff5f5}.tI{border-color:#fb8c00;background:#fff8f0}
+  .tN{border-color:#8e24aa;background:#faf0ff}.tD{border-color:#1e88e5;background:#f0f7ff}
+  .tDi{border-color:#00897b;background:#f0faf8}.tU{border-color:#f4511e;background:#fff3f0}
+  .tNC{border-color:#546e7a;background:#f5f7f8}
+  .tc h4{font-size:.88rem;font-weight:700;margin-bottom:7px}
+  .tc ul{font-size:.78rem;padding-left:15px;line-height:1.7}
+  .sg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .sc2{border-radius:10px;padding:14px;border:1px solid var(--border);background:var(--card)}
+  .sc2 .st{font-size:.82rem;font-weight:700;color:var(--pd);margin-bottom:7px}
+  .sc2 ul{font-size:.76rem;padding-left:14px;line-height:1.7}
+  .hl{background:#fffde7;border-left:4px solid #f9a825;padding:11px 14px;border-radius:0 8px 8px 0;font-size:.83rem;margin:10px 0}
+  .tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.7rem;font-weight:600;margin:2px}
+  .tb{background:#e3f2fd;color:#1565c0}.tg2{background:#e8f5e9;color:#2e7d32}
+  .tr{background:#fce4ec;color:#c62828}.tp{background:#f3e5f5;color:#6a1b9a}
+  .to{background:#fff3e0;color:#e65100}
+  .tt{display:inline-block;margin:2px;padding:2px 8px;border-radius:12px;font-size:.7rem;font-weight:600}
+  .tt-s{background:#fce4ec;color:#c62828}.tt-g{background:#e8f5e9;color:#2e7d32}
+  .pt{font-size:1.35rem;font-weight:800;color:var(--pd);margin-bottom:5px}
+  .ps{font-size:.85rem;color:var(--muted);margin-bottom:22px}
+  .dfd{display:flex;flex-direction:column;gap:8px}
+  .dr{display:flex;align-items:stretch;gap:8px}
+  .dn{flex:1;background:#e3f2fd;border:2px solid #90caf9;border-radius:10px;padding:11px 12px;font-size:.76rem;text-align:center}
+  .dn strong{display:block;font-size:.8rem;color:#0d47a1;margin-bottom:3px}
+  .dn.ext{background:#e8f5e9;border-color:#a5d6a7}.dn.ext strong{color:#2e7d32}
+  .dn.st{background:#fff3e0;border-color:#ffcc80}.dn.st strong{color:#e65100}
+  .dn.pr{background:#f3e5f5;border-color:#ce93d8}.dn.pr strong{color:#6a1b9a}
+  .da{display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#90caf9;padding:0 3px}
+  .pb{background:#f8faff;border:1px solid #c5cae9;border-radius:10px;padding:18px 22px;font-size:.83rem;line-height:1.8;margin-bottom:14px}
+  .pb h4{font-size:.92rem;font-weight:700;color:var(--pd);margin-bottom:9px}
+  .cf{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:14px 0}
+  .cfs{background:#e3f2fd;border-radius:10px;padding:10px 14px;font-size:.78rem;text-align:center;min-width:100px;border:1px solid #90caf9}
+  .cfs strong{display:block;font-size:.82rem;color:#0d47a1;margin-bottom:3px}
+  .cfa{font-size:1.3rem;color:#90caf9;padding:0 5px}
+  .div{height:1px;background:var(--border);margin:16px 0}
+  .pii-t th{background:#1565c0;color:#fff}
+  @media(max-width:860px){#sb{transform:translateX(-100%)}#sb.open{transform:translateX(0)}#main{margin-left:0;padding:18px 14px}.cg,.tg,.sg2{grid-template-columns:1fr}#burger{display:block!important}}
+  #burger{display:none;position:fixed;top:12px;left:12px;z-index:200;background:var(--p);color:#fff;border:none;border-radius:8px;padding:7px 11px;cursor:pointer;font-size:1rem}
+</style>
+</head>
+<body>
+<button id="burger" onclick="document.getElementById('sb').classList.toggle('open')">☰</button>
+<nav id="sb">
+  <div class="brand">
+    <h2>🔐 Data Privacy by Design</h2>
+    <p>Digital Financial Advisor<br>Linh HOANG Thuy – DSA S1 2026</p>
+  </div>
+  <nav>
+    <a onclick="show('home')" id="n-home" class="active">🏠 Overview</a>
+    <div class="grp">Report Sections</div>
+    <a onclick="show('s1')" id="n-s1">§1 Dataset Explanation</a>
+    <a onclick="show('s2')" id="n-s2">§2 System Diagram (DFD)</a>
+    <a onclick="show('s3')" id="n-s3">§3 LINDDUN Threats</a>
+    <a onclick="show('s4')" id="n-s4">§4 ARX Certificate</a>
+    <a onclick="show('s5')" id="n-s5">§5 ARX Decisions</a>
+    <a onclick="show('s6')" id="n-s6">§6 Privacy Solutions</a>
+    <a onclick="show('s7')" id="n-s7">§7 GDPR Compliance</a>
+  </nav>
+</nav>
+
+<main id="main">
+
+<!-- HOME -->
+<div class="pg active" id="home">
+  <div class="hero">
+    <h1>Digital Financial Advisor — Privacy Report</h1>
+    <p>A comprehensive Data Privacy by Design (PbD) analysis: dataset profiling, LINDDUN threat modeling, ARX anonymization, PETs solutions, and GDPR compliance.</p>
+    <div class="meta">
+      <span>📊 500 Records · 15 Attributes</span>
+      <span>👤 Linh HOANG Thuy</span>
+      <span>🎓 EPITA DSA S1 2026</span>
+      <span>📋 Sections 1–7</span>
+    </div>
+  </div>
+  <div class="sg">
+    <div class="sc"><div class="v">500</div><div class="l">Total Records</div></div>
+    <div class="sc"><div class="v">15</div><div class="l">Attributes</div></div>
+    <div class="sc"><div class="v">4</div><div class="l">Direct/Quasi-IDs</div></div>
+    <div class="sc"><div class="v">7</div><div class="l">LINDDUN Threats</div></div>
+    <div class="sc"><div class="v">k=5</div><div class="l">k-Anonymity</div></div>
+    <div class="sc"><div class="v">30</div><div class="l">Suppressed Records</div></div>
+  </div>
+  <div class="card">
+    <h3>📌 Report Structure</h3>
+    <div class="tw"><table>
+      <tr><th>Section</th><th>Topic</th><th>Key Deliverable</th></tr>
+      <tr><td>§1</td><td>Dataset Explanation</td><td>Column-by-column analysis, identifier classification</td></tr>
+      <tr><td>§2</td><td>System Reference Diagram</td><td>High-level Data Flow Diagram (DFD)</td></tr>
+      <tr><td>§3</td><td>LINDDUN Threat Modeling</td><td>7 threat categories × hotspots</td></tr>
+      <tr><td>§4</td><td>ARX Certificate</td><td>Anonymization output summary</td></tr>
+      <tr><td>§5</td><td>ARX Decision Rationale</td><td>Input specs, transformations, privacy models</td></tr>
+      <tr><td>§6</td><td>Privacy Solutions</td><td>PETs, Cryptography, OWASP mitigations</td></tr>
+      <tr><td>§7</td><td>GDPR Compliance</td><td>Data inventory, RoPA, Privacy Policy, Consent</td></tr>
+    </table></div>
+  </div>
+</div>
+
+<!-- S1 -->
+<div class="pg" id="s1">
+  <div class="pt">§1 — Dataset Explanation</div>
+  <div class="ps">digital_financial_advisor_data.csv · 500 records · 15 attributes</div>
+  <div class="sg">
+    <div class="sc"><div class="v">1</div><div class="l">Direct Identifier</div></div>
+    <div class="sc"><div class="v">2</div><div class="l">Identifying (ARX)</div></div>
+    <div class="sc"><div class="v">6</div><div class="l">Quasi-Identifiers</div></div>
+    <div class="sc"><div class="v">3</div><div class="l">Sensitive Attrs</div></div>
+    <div class="sc"><div class="v">4</div><div class="l">Insensitive Attrs</div></div>
+  </div>
+  <div class="card">
+    <h3>📋 Column-by-Column Analysis</h3>
+    <div class="tw"><table>
+      <tr><th>Column</th><th>Type</th><th>Example</th><th>Format</th><th>Classification</th></tr>
+      <tr><td><b>Name</b></td><td>Qualitative</td><td>Michael Cameron</td><td>Text string</td><td><span class="b bd">Direct Identifier</span></td></tr>
+      <tr><td><b>Age</b></td><td>Quantitative Discrete</td><td>32</td><td>Integer (18–70)</td><td><span class="b bi">Quasi-Identifier</span></td></tr>
+      <tr><td><b>Location</b></td><td>Qualitative</td><td>Port Stephenton, Gabon</td><td>City + Country</td><td><span class="b bi">Quasi-Identifier</span></td></tr>
+      <tr><td><b>Gender</b></td><td>Qualitative</td><td>Male/Female/Non-binary</td><td>Text string</td><td><span class="b bi">Quasi-Identifier</span></td></tr>
+      <tr><td><b>Income</b></td><td>Quantitative Continuous</td><td>8576.35</td><td>Decimal/float</td><td><span class="b bi">Quasi-ID + Sensitive</span></td></tr>
+      <tr><td><b>Assets</b></td><td>Quantitative Continuous</td><td>63086.90</td><td>Decimal/float</td><td><span class="b bi">Quasi-Identifier</span></td></tr>
+      <tr><td><b>Debts</b></td><td>Quantitative Continuous</td><td>3921.93</td><td>Decimal/float</td><td><span class="b bs">Sensitive Financial</span></td></tr>
+      <tr><td><b>Monthly Expenses</b></td><td>Quantitative Continuous</td><td>3046.87</td><td>Decimal/float</td><td><span class="b bs">Sensitive Financial</span></td></tr>
+      <tr><td><b>Investment Preference</b></td><td>Qualitative</td><td>Fixed Deposits / Gold</td><td>Text string</td><td><span class="b bs">Sensitive</span></td></tr>
+      <tr><td><b>Type of Advice Sought</b></td><td>Qualitative</td><td>Tax Planning</td><td>Text string</td><td><span class="b bs">Sensitive</span></td></tr>
+      <tr><td><b>User Financial Goal</b></td><td>Qualitative</td><td>Tax Savings</td><td>Text string</td><td><span class="b bs">Sensitive</span></td></tr>
+      <tr><td><b>Action Based on Advice</b></td><td>Qualitative Ordinal</td><td>Implemented</td><td>Text string</td><td><span class="b bn">Insensitive</span></td></tr>
+      <tr><td><b>Feedback on Advice</b></td><td>Qualitative Ordinal</td><td>Very Satisfied</td><td>Text string</td><td><span class="b bn">Insensitive</span></td></tr>
+      <tr><td><b>App Usability Feedback</b></td><td>Qualitative Ordinal</td><td>Unsatisfied</td><td>Text string</td><td><span class="b bn">Insensitive</span></td></tr>
+      <tr><td><b>Trust Level</b></td><td>Qualitative Ordinal</td><td>High/Low/Moderate</td><td>Text string</td><td><span class="b bn">Insensitive</span></td></tr>
+    </table></div>
+  </div>
+  <div class="cg">
+    <div class="cb"><h4>Gender Distribution</h4><canvas id="cGender"></canvas></div>
+    <div class="cb"><h4>Investment Preference</h4><canvas id="cInvest"></canvas></div>
+    <div class="cb"><h4>Type of Advice Sought</h4><canvas id="cAdvice"></canvas></div>
+    <div class="cb"><h4>Trust Level with Advisor</h4><canvas id="cTrust"></canvas></div>
+  </div>
+  <div class="hl">⚠️ <b>Re-identification Risk:</b> Name + Location + Age is sufficient to uniquely identify most individuals. Without Name, Gender + Income + Location still creates a near-unique behavioral fingerprint.</div>
+</div>
+
+<!-- S2 -->
+<div class="pg" id="s2">
+  <div class="pt">§2 — System Reference Diagram (DFD)</div>
+  <div class="ps">High-level Data Flow Diagram covering all major system components</div>
+  <div class="card">
+    <h3>🗺️ Data Flow Diagram — Digital Financial Advisor Platform</h3>
+    <div class="dfd">
+      <div class="dr">
+        <div class="dn ext"><strong>👤 End User</strong>Registers, inputs financial profile, receives advice</div>
+        <div class="da">→</div>
+        <div class="dn pr"><strong>⚙️ Auth & Onboarding</strong>Identity verification, consent collection, profile creation</div>
+        <div class="da">→</div>
+        <div class="dn st"><strong>🗄️ User Profile DB</strong>Name, Age, Location, Gender, Income, Assets, Debts, Expenses</div>
+      </div>
+      <div style="display:flex;justify-content:center"><div style="width:2px;background:#90caf9;height:28px"></div></div>
+      <div class="dr">
+        <div class="dn st"><strong>🗄️ Behavioral Log DB</strong>Investment Pref, Advice Type, Goal, Action, Feedback</div>
+        <div class="da">←</div>
+        <div class="dn pr"><strong>⚙️ Financial Advisory Engine</strong>Analyzes profile, generates personalized advice</div>
+        <div class="da">←</div>
+        <div class="dn pr"><strong>⚙️ Data Ingestion</strong>Sanitizes inputs, strips PII titles, validates formats</div>
+      </div>
+      <div style="display:flex;justify-content:center"><div style="width:2px;background:#90caf9;height:28px"></div></div>
+      <div class="dr">
+        <div class="dn ext"><strong>📊 Analytics Dashboard</strong>Aggregate reports, DP-protected insights</div>
+        <div class="da">←</div>
+        <div class="dn pr"><strong>⚙️ Anonymization Pipeline</strong>ARX k-anonymity, generalization, suppression</div>
+        <div class="da">←</div>
+        <div class="dn st"><strong>🗄️ Anonymized Dataset</strong>Generalized quasi-IDs, suppressed outliers</div>
+      </div>
+      <div style="display:flex;justify-content:center"><div style="width:2px;background:#90caf9;height:28px"></div></div>
+      <div class="dr">
+        <div class="dn ext"><strong>🏛️ Regulatory / Audit</strong>GDPR reports, RoPA, DPA notifications</div>
+        <div class="da">←</div>
+        <div class="dn pr"><strong>⚙️ Compliance Module</strong>Consent management, data subject rights (Art.15-22)</div>
+        <div class="da">←</div>
+        <div class="dn st"><strong>🗄️ Consent & Audit Log</strong>Consent records, TTL-expiry behavioral data</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🔑 Key Data Flows & Privacy Boundaries</h3>
+    <div class="tw"><table>
+      <tr><th>Flow</th><th>Data Involved</th><th>Privacy Concern</th><th>Control</th></tr>
+      <tr><td>User → Onboarding</td><td>Name, Age, Location, Gender, Income, Assets</td><td>Direct + Quasi-ID collection</td><td>Consent gate, data minimization</td></tr>
+      <tr><td>Profile DB → Advisory Engine</td><td>Full financial profile</td><td>Sensitive financial exposure</td><td>ABAC, encryption at rest</td></tr>
+      <tr><td>Engine → Behavioral Log</td><td>Advice type, actions, feedback</td><td>Longitudinal behavioral profiling</td><td>TTL 90 days, pseudonymization</td></tr>
+      <tr><td>Behavioral Log → Anonymization</td><td>All quasi-identifiers</td><td>Re-identification risk</td><td>ARX k-anonymity + suppression</td></tr>
+      <tr><td>Anonymized → Analytics</td><td>Generalized attributes</td><td>Residual linkability</td><td>Differential Privacy queries only</td></tr>
+      <tr><td>System → Regulatory</td><td>RoPA, consent records</td><td>Compliance accountability</td><td>Audit logs, SCCs cross-border</td></tr>
+    </table></div>
+  </div>
+</div>
+
+<!-- S3 -->
+<div class="pg" id="s3">
+  <div class="pt">§3 — LINDDUN Threat Modeling</div>
+  <div class="ps">7 threat categories applied to the Digital Financial Advisor system</div>
+  <div class="tg">
+    <div class="tc tL">
+      <h4>🔗 L — Linkability</h4>
+      <ul>
+        <li><b>L1.1:</b> Name + Location + Age → cross-dataset re-identification</li>
+        <li><b>L1.2:</b> Gender + Income + Investment Pref → behavioral fingerprint</li>
+        <li><b>L1.3:</b> Income + Assets + Debts → linkable to credit/tax databases</li>
+        <li><b>L1.4:</b> Repeated "Seeking Further Consultation" → persistent anxiety pattern</li>
+      </ul>
+    </div>
+    <div class="tc tI">
+      <h4>🎯 I — Identifiability</h4>
+      <ul>
+        <li><b>I2.1:</b> Full Name field → direct identifier</li>
+        <li><b>I2.2:</b> Rare Location (Bouvet Island, Cocos Islands) → near-unique</li>
+        <li><b>I2.3:</b> Professional titles in Name (DDS, MD) → cross-referenceable</li>
+        <li><b>I2.4:</b> Income + Assets + Debts + Expenses → unique financial fingerprint</li>
+      </ul>
+    </div>
+    <div class="tc tN">
+      <h4>📝 N — Non-Repudiation</h4>
+      <ul>
+        <li><b>N3.1:</b> Action logs permanently link user to financial decisions</li>
+        <li><b>N3.2:</b> Feedback records create non-deniable behavioral history</li>
+        <li><b>N3.3:</b> Audit trails may prevent exercising right to erasure (Art. 17)</li>
+      </ul>
+    </div>
+    <div class="tc tD">
+      <h4>👁️ D — Detectability</h4>
+      <ul>
+        <li><b>D4.1:</b> "High ROI Investments" goal → wealth signal detectable</li>
+        <li><b>D4.2:</b> API query patterns reveal financial interest categories</li>
+        <li><b>D4.3:</b> Endpoint access frequency → detectable behavioral signature</li>
+      </ul>
+    </div>
+    <div class="tc tDi">
+      <h4>📢 Di — Disclosure</h4>
+      <ul>
+        <li><b>Di5.1:</b> Unencrypted financial data in transit/at rest</li>
+        <li><b>Di5.2:</b> Insider access to full profile without need-to-know</li>
+        <li><b>Di5.3:</b> Analytics exports containing individual-level records</li>
+      </ul>
+    </div>
+    <div class="tc tU">
+      <h4>😶 U — Unawareness</h4>
+      <ul>
+        <li><b>U6.1:</b> Users unaware of behavioral profiling from advice interactions</li>
+        <li><b>U6.2:</b> No visibility into how financial goals influence recommendations</li>
+        <li><b>U6.3:</b> Lack of transparency on data retention periods</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tc tNC" style="margin-top:14px;border-radius:12px;padding:16px;border-left:5px solid #546e7a;background:#f5f7f8">
+    <h4>⚖️ NC — Non-Compliance</h4>
+    <ul style="columns:2;gap:20px">
+      <li><b>NC7.1:</b> No explicit legal basis documented per processing activity</li>
+      <li><b>NC7.2:</b> Missing RoPA — GDPR Art. 30</li>
+      <li><b>NC7.3:</b> No consent withdrawal mechanism for behavioral data</li>
+      <li><b>NC7.4:</b> Cross-border transfers without SCCs/adequacy decisions</li>
+      <li><b>NC7.5:</b> No DPIA despite high-risk financial profiling</li>
+    </ul>
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="pg" id="s4">
+  <div class="pt">§4 — ARX Certificate</div>
+  <div class="ps">Anonymization certificate generated by ARX Data Anonymization Tool</div>
+  <div class="sg">
+    <div class="sc"><div class="v">500</div><div class="l">Input Records</div></div>
+    <div class="sc"><div class="v">15</div><div class="l">Attributes</div></div>
+    <div class="sc"><div class="v">470</div><div class="l">Generalized</div></div>
+    <div class="sc"><div class="v">30</div><div class="l">Suppressed (6%)</div></div>
+    <div class="sc"><div class="v">k=5</div><div class="l">k-Anonymity</div></div>
+  </div>
+  <div class="card">
+    <h3>🏷️ Attribute Classification in ARX</h3>
+    <div class="tw"><table>
+      <tr><th>ARX Category</th><th>Attributes</th><th>Data Type</th></tr>
+      <tr><td><span class="b bd">Identifying</span></td><td>Name, Location</td><td>String</td></tr>
+      <tr><td><span class="b bi">Quasi-Identifying</span></td><td>Age, Gender, Income, Assets, Debts, Monthly Expenses</td><td>Integer / Decimal / String</td></tr>
+      <tr><td><span class="b bs">Sensitive</span></td><td>User Financial Goal, Type of Advice Sought, Investment Preference</td><td>String</td></tr>
+      <tr><td><span class="b bn">Insensitive</span></td><td>App Usability Feedback, Action Based on Advice, Feedback on Advice, Trust Level</td><td>String</td></tr>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>🌳 Generalization Hierarchies</h3>
+    <div class="tw"><table>
+      <tr><th>Attribute</th><th>Height</th><th>Min</th><th>Max</th><th>Example</th></tr>
+      <tr><td>Income</td><td>4</td><td>0</td><td>3</td><td>8576.35 → [5000,8000[ → [0,10000[ → *</td></tr>
+      <tr><td>Gender</td><td>3</td><td>0</td><td>2</td><td>Male → Person → *</td></tr>
+      <tr><td>Age</td><td>2</td><td>0</td><td>1</td><td>32 → [0,80[ → *</td></tr>
+      <tr><td>Assets</td><td>3</td><td>0</td><td>2</td><td>63086.9 → [0,80000[ → *</td></tr>
+      <tr><td>Debts</td><td>—</td><td>—</td><td>—</td><td><span class="tt tt-s">Fully Suppressed (*)</span></td></tr>
+      <tr><td>Monthly Expenses</td><td>—</td><td>—</td><td>—</td><td><span class="tt tt-s">Fully Suppressed (*)</span></td></tr>
+      <tr><td>Name</td><td>—</td><td>—</td><td>—</td><td><span class="tt tt-s">Fully Suppressed (*)</span></td></tr>
+      <tr><td>Location</td><td>—</td><td>—</td><td>—</td><td><span class="tt tt-s">Fully Suppressed (*)</span></td></tr>
+    </table></div>
+  </div>
+  <div class="cg">
+    <div class="cb"><h4>Anonymized Income Brackets</h4><canvas id="cAnonIncome"></canvas></div>
+    <div class="cb"><h4>Anonymized Assets Brackets</h4><canvas id="cAnonAssets"></canvas></div>
+  </div>
+  <div class="hl">✅ <b>Consistency check:</b> The anonymized CSV confirms Name, Location, Debts, Monthly Expenses fully suppressed (*). Age generalized to [0,80[. Income → 3 brackets. Assets → 2 brackets. 30 outlier records fully suppressed (6% suppression rate — within acceptable threshold).</div>
+</div>
+
+<!-- S5 -->
+<div class="pg" id="s5">
+  <div class="pt">§5 — ARX Decision Rationale</div>
+  <div class="ps">Input specifications, transformation choices, and privacy model justifications</div>
+  <div class="card">
+    <h3>⚙️ Input Specification Decisions</h3>
+    <div class="tw"><table>
+      <tr><th>Attribute → Decision</th><th>Rationale</th></tr>
+      <tr><td>Name → <span class="tt tt-s">Identifying / Suppressed</span></td><td>Direct identifier — no analytical value. Removed per GDPR Art. 25. Suppressed to * in output.</td></tr>
+      <tr><td>Location → <span class="tt tt-s">Identifying / Suppressed</span></td><td>City+Country near-unique for rare territories (Bouvet Island, Cocos Islands). Suppressed to prevent geographic re-identification.</td></tr>
+      <tr><td>Age → <span class="tt tt-g">Quasi-ID / Generalized</span></td><td>Exact age enables re-identification with Gender+Location. Generalized to [0,80[ covering all ages 18–70.</td></tr>
+      <tr><td>Gender → <span class="tt tt-g">Quasi-ID / Generalized</span></td><td>3-level hierarchy: exact → Person → *. Retained at level 0 for most records; suppressed for rare combinations.</td></tr>
+      <tr><td>Income → <span class="tt tt-g">Quasi-ID / Generalized</span></td><td>Precise income (e.g., 8576.35) matchable to payroll records. Generalized into 3 financial brackets: [0,5000[, [5000,8000[, ≥8000.</td></tr>
+      <tr><td>Assets → <span class="tt tt-g">Quasi-ID / Generalized</span></td><td>High-value assets create rare profiles. Generalized to [0,80000[ and ≥80000 preserving wealth-tier analytics.</td></tr>
+      <tr><td>Debts → <span class="tt tt-s">Quasi-ID / Suppressed</span></td><td>Many records have Debts=0 (distinctive). Combined with other attrs, creates highly unique combinations. Fully suppressed.</td></tr>
+      <tr><td>Monthly Expenses → <span class="tt tt-s">Quasi-ID / Suppressed</span></td><td>High-granularity continuous variable. Linkable to bank/e-commerce history. Suppressed to prevent behavioral fingerprinting.</td></tr>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>🔒 Privacy Models Applied</h3>
+    <div class="sg2">
+      <div class="sc2">
+        <div class="st">🔢 k-Anonymity (k=5)</div>
+        <ul>
+          <li>Every quasi-ID combination appears ≥5 times</li>
+          <li>Prevents singling out individuals</li>
+          <li>Applied to: Age + Gender + Income + Assets</li>
+          <li>30 records suppressed where k&lt;5 unavoidable</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">📊 l-Diversity (implicit)</div>
+        <ul>
+          <li>Sensitive attrs (Financial Goal, Advice Type) maintain diversity within equivalence classes</li>
+          <li>Prevents attribute disclosure attacks</li>
+          <li>Verified through ARX solution explorer</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">🎯 Data Quality Model</div>
+        <ul>
+          <li>Sensitive attrs (Investment Pref, Advice Type, Goal) retained without generalization</li>
+          <li>Insensitive behavioral attrs fully retained</li>
+          <li>Balance: privacy protection vs. analytical utility</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">⚡ Suppression Strategy</div>
+        <ul>
+          <li>6% suppression rate (30/500) — acceptable threshold</li>
+          <li>Targets outliers: rare locations, extreme financial values</li>
+          <li>Preserves 94% of dataset for downstream analytics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="pg" id="s6">
+  <div class="pt">§6 — Privacy Solutions (PETs & Cryptography)</div>
+  <div class="ps">Solutions for LINDDUN threats leveraging PETs, Cryptography, and OWASP Top 10</div>
+  <div class="card">
+    <h3>🛡️ Solutions by LINDDUN Threat Category</h3>
+    <div class="tw"><table>
+      <tr><th>Threat</th><th>Key PET/Technology Solutions</th><th>Regulatory References</th></tr>
+      <tr><td><b>🔗 Linkability</b></td><td><span class="tag tb">k-Anonymity</span><span class="tag tb">Differential Privacy</span><span class="tag tb">Pseudonymization</span><span class="tag tg2">ZKP</span><span class="tag tg2">Synthetic Data (GAN/VAE)</span></td><td>GDPR Art. 5, 25; NIST SP 800-188</td></tr>
+      <tr><td><b>🎯 Identifiability</b></td><td><span class="tag tb">Tokenization</span><span class="tag tb">SMPC</span><span class="tag tp">ARX Tool</span><span class="tag to">Geo-Masking</span><span class="tag tr">Title Stripping</span></td><td>GDPR Art. 25; OWASP A02</td></tr>
+      <tr><td><b>📝 Non-Repudiation</b></td><td><span class="tag tb">Anonymous Credentials</span><span class="tag tg2">Commitment Schemes</span><span class="tag tp">ZKP</span><span class="tag to">TTL Logs</span></td><td>GDPR Art. 17; W3C VC</td></tr>
+      <tr><td><b>👁️ Detectability</b></td><td><span class="tag tb">Traffic Padding</span><span class="tag tb">HE/ORAM</span><span class="tag tg2">Endpoint Generalization</span><span class="tag tp">DP Query Logs</span></td><td>OWASP API Top 10</td></tr>
+      <tr><td><b>📢 Disclosure</b></td><td><span class="tag tb">AES-256</span><span class="tag tb">Field-Level Encryption</span><span class="tag tg2">Federated Learning</span><span class="tag tp">DP-SGD</span><span class="tag to">TLS 1.3</span></td><td>GDPR Art. 32; PCI-DSS v4.0; OWASP A01,A02</td></tr>
+      <tr><td><b>😶 Unawareness</b></td><td><span class="tag tb">Privacy Nutrition Labels</span><span class="tag tg2">XAI Dashboard</span><span class="tag tp">Consent CMP</span><span class="tag to">Behavioral Profile Viewer</span></td><td>GDPR Art. 13,15,22; CCPA</td></tr>
+      <tr><td><b>⚖️ Non-Compliance</b></td><td><span class="tag tb">RoPA</span><span class="tag tb">SCCs</span><span class="tag tg2">TIA</span><span class="tag tp">Human-in-the-Loop</span><span class="tag to">Privacy Portal (Art.15–22)</span></td><td>GDPR Art. 5–22,30; COPPA; GLBA; PCI-DSS</td></tr>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>🔐 Key Technical Solutions — Deep Dive</h3>
+    <div class="sg2">
+      <div class="sc2">
+        <div class="st">🔑 Pseudonymization at Ingestion</div>
+        <ul>
+          <li>Replace Name with UUID at data entry point</li>
+          <li>Name↔UUID mapping in access-controlled identity vault</li>
+          <li>HMAC-SHA256 with secret salt for internal references</li>
+          <li>Ref: GDPR Art. 25; OWASP A02:2021</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">📊 Differential Privacy for Income</div>
+        <ul>
+          <li>Add Laplace noise (ε=0.5) before analytics storage</li>
+          <li>Round to nearest $500 bracket + noise injection</li>
+          <li>Expose Income only through DP-protected aggregate queries</li>
+          <li>Ref: NIST SP 800-188; Apple DP whitepaper</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">🌍 Location Generalization</div>
+        <ul>
+          <li>Store only country/region (never city-level)</li>
+          <li>Rare territories (pop. &lt;50k) → "Other/Small Territory"</li>
+          <li>Geo-masking: random offset within administrative region</li>
+          <li>Consent-gated precision for tax jurisdiction use cases</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">🔒 Tokenization for Financial Fields</div>
+        <ul>
+          <li>Replace Income/Assets/Debts with vault tokens (HashiCorp/AWS)</li>
+          <li>Federated architecture: never join all financial fields</li>
+          <li>SMPC for cross-institutional analytics</li>
+          <li>Ref: PCI-DSS v4.0 Req.3; OWASP A04:2021</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">⏰ Temporal Data Expiry (TTL)</div>
+        <ul>
+          <li>TTL 90 days on behavioral logs (Action, Feedback)</li>
+          <li>Only aggregated summaries retained long-term</li>
+          <li>Blind signatures for unlinkable audit logs</li>
+          <li>Ref: GDPR Art. 17 (Right to Erasure)</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">🤖 Synthetic Data Generation</div>
+        <ul>
+          <li>Replace Monthly Expenses with GAN/VAE synthetic equivalents</li>
+          <li>Preserve statistical distributions without individual records</li>
+          <li>Tools: Gretel.ai, SDV library</li>
+          <li>Ref: ENISA PETs Guidelines 2022</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="pg" id="s7">
+  <div class="pt">§7 — GDPR Compliance & Data Inventory</div>
+  <div class="ps">Data inventory, RoPA, Privacy Policy, Terms of Use, and Consent Strategy</div>
+  <div class="card">
+    <h3>📋 7.1 — Data Inventory (PII Spreadsheet)</h3>
+    <div class="tw"><table class="pii-t">
+      <tr><th colspan="2">Personally Identifiable Information (PII)</th><th>Purpose (Legal Basis)</th><th>Retention</th><th>Repository</th></tr>
+      <tr><th style="background:#e3f2fd;color:#0d47a1">Direct Identifiers</th><th style="background:#e3f2fd;color:#0d47a1">Quasi-Identifiers</th><td></td><td></td><td></td></tr>
+      <tr><td>Name (Full name)</td><td>Age, Gender, Location</td><td>Service provision (Contract — Art. 6(1)(b))</td><td>Service duration + 30 days</td><td>User Profile DB</td></tr>
+      <tr><td>—</td><td>Income, Assets, Debts, Monthly Expenses</td><td>Financial advisory (Contract — Art. 6(1)(b))</td><td>Service duration + 90 days</td><td>Profile DB, Backups</td></tr>
+      <tr><td>—</td><td>Investment Pref, Advice Type, Financial Goal</td><td>Personalized advice (Consent — Art. 6(1)(a))</td><td>90 days TTL</td><td>Behavioral Log DB</td></tr>
+      <tr><td>—</td><td>Action, Feedback, Trust Level</td><td>Service improvement (Legitimate interest — Art. 6(1)(f))</td><td>Aggregated only after 90 days</td><td>Log DB, Logfiles</td></tr>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>📝 7.2 — Data Processing Register (RoPA — Art. 30)</h3>
+    <div class="tw"><table>
+      <tr><th>Processing Activity</th><th>Ref</th><th>Created</th><th>Purpose</th><th>Special Category?</th></tr>
+      <tr><td>User Registration & Profile Creation</td><td>DFA-001</td><td>2025-01-01</td><td>Create user account, collect financial profile for advisory service</td><td>No</td></tr>
+      <tr><td>Financial Advisory Generation</td><td>DFA-002</td><td>2025-01-01</td><td>Generate personalized financial advice based on user profile</td><td>No (financial = sensitive)</td></tr>
+      <tr><td>Behavioral Analytics</td><td>DFA-003</td><td>2025-01-01</td><td>Analyze user actions and feedback to improve advisory algorithms</td><td>No</td></tr>
+      <tr><td>Anonymization for Research</td><td>DFA-004</td><td>2025-01-01</td><td>Anonymize dataset for academic/research purposes using ARX</td><td>No</td></tr>
+      <tr><td>Regulatory Reporting</td><td>DFA-005</td><td>2025-01-01</td><td>Compliance reporting to DPA, audit trail maintenance</td><td>No</td></tr>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>📄 7.3 — Privacy Policy (1-page)</h3>
+    <div class="pb">
+      <h4>Digital Financial Advisor — Privacy Policy</h4>
+      <p><b>Data Controller:</b> Digital Financial Advisor Platform | <b>Contact:</b> privacy@dfa-platform.com</p>
+      <div class="div"></div>
+      <p><b>What we collect:</b> Name, Age, Location, Gender, Income, Assets, Debts, Monthly Expenses, Investment Preferences, Advice interactions, and Feedback.</p>
+      <p style="margin-top:7px"><b>Why we collect it:</b> To provide personalized financial advisory services (contract necessity), improve our platform (legitimate interest), and comply with legal obligations.</p>
+      <p style="margin-top:7px"><b>How long we keep it:</b> Profile data: service duration + 30 days. Behavioral logs: 90 days TTL, then aggregated only. Anonymized research data: indefinitely.</p>
+      <p style="margin-top:7px"><b>Who we share with:</b> No third-party sharing without explicit consent. Anonymized aggregates may be used for research. Cross-border transfers protected by SCCs.</p>
+      <p style="margin-top:7px"><b>Your rights (GDPR Art. 15–22):</b> Access · Rectification · Erasure · Restriction · Portability · Objection · Withdraw consent at any time.</p>
+      <p style="margin-top:7px"><b>Security:</b> AES-256 encryption at rest, TLS 1.3 in transit, pseudonymization, ABAC access controls.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📜 7.3 — Terms of Use (1-page)</h3>
+    <div class="pb">
+      <h4>Digital Financial Advisor — Terms of Use</h4>
+      <p><b>Service:</b> AI-powered financial guidance platform. Advice is informational only and does not constitute regulated financial advice.</p>
+      <p style="margin-top:7px"><b>User obligations:</b> Provide accurate financial information. Do not use for fraudulent purposes. Users must be 18+ years old.</p>
+      <p style="margin-top:7px"><b>Data use:</b> By using this service, you consent to collection and processing of financial data as described in our Privacy Policy. You may withdraw consent at any time via account settings.</p>
+      <p style="margin-top:7px"><b>Intellectual property:</b> All advisory algorithms and platform content are proprietary. User-generated feedback data is used solely for service improvement.</p>
+      <p style="margin-top:7px"><b>Liability:</b> The platform is not liable for financial decisions made based on advisory outputs. Users bear responsibility for their financial choices.</p>
+      <p style="margin-top:7px"><b>Governing law:</b> These terms are governed by EU law. Disputes resolved under GDPR jurisdiction.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>✅ 7.4 — Consent Strategy (Privacy-Focused)</h3>
+    <div class="cf">
+      <div class="cfs"><strong>1. Landing</strong>Privacy Nutrition Label shown before registration</div>
+      <div class="cfa">→</div>
+      <div class="cfs"><strong>2. Granular Consent</strong>Separate toggles per purpose (advisory, analytics, research)</div>
+      <div class="cfa">→</div>
+      <div class="cfs"><strong>3. Confirmation</strong>Plain-language summary + downloadable consent receipt</div>
+      <div class="cfa">→</div>
+      <div class="cfs"><strong>4. Ongoing</strong>Dashboard: view/modify/withdraw consent at any time</div>
+      <div class="cfa">→</div>
+      <div class="cfs"><strong>5. Expiry Alert</strong>Re-consent prompt every 12 months or on policy change</div>
+    </div>
+    <div class="hl" style="margin-top:12px">
+      💡 <b>Key principle:</b> Consent is granular (per purpose), freely given, specific, informed, and unambiguous — per GDPR Art. 7. Withdrawal is as easy as giving consent (one-click in account settings).
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+function show(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#sb nav a').forEach(a=>a.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('n-'+id).classList.add('active');
+  if(window.innerWidth<=860) document.getElementById('sb').classList.remove('open');
+  if(id==='s1') initS1Charts();
+  if(id==='s4') initS4Charts();
+}
+
+let s1done=false, s4done=false;
+
+function initS1Charts(){
+  if(s1done) return; s1done=true;
+  const pal=['#1a73e8','#00bcd4','#43a047','#fb8c00','#e53935','#8e24aa','#546e7a'];
+  new Chart(document.getElementById('cGender'),{type:'doughnut',data:{labels:['Female','Non-binary','Male'],datasets:[{data:[168,167,165],backgroundColor:['#e91e63','#9c27b0','#1a73e8'],borderWidth:2}]},options:{plugins:{legend:{position:'bottom'}},cutout:'60%'}});
+  new Chart(document.getElementById('cInvest'),{type:'bar',data:{labels:['Mutual Funds','Fixed Dep.','Real Estate','Crypto','Gold','Bonds','Stocks'],datasets:[{data:[77,75,73,73,71,66,65],backgroundColor:pal,borderRadius:6}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+  new Chart(document.getElementById('cAdvice'),{type:'bar',data:{labels:['Debt Mgmt','Retirement','Savings Plan','Tax Planning','Investment'],datasets:[{data:[109,104,103,97,87],backgroundColor:['#1a73e8','#00bcd4','#43a047','#fb8c00','#e53935'],borderRadius:6}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
+  new Chart(document.getElementById('cTrust'),{type:'doughnut',data:{labels:['Low','High','Moderate'],datasets:[{data:[184,163,153],backgroundColor:['#e53935','#43a047','#fb8c00'],borderWidth:2}]},options:{plugins:{legend:{position:'bottom'}},cutout:'60%'}});
+}
+
+function initS4Charts(){
+  if(s4done) return; s4done=true;
+  new Chart(document.getElementById('cAnonIncome'),{type:'pie',data:{labels:['[0, 5000[','[5000, 8000[','≥8000','Suppressed (*)'],datasets:[{data:[175,148,147,30],backgroundColor:['#1a73e8','#00bcd4','#43a047','#e0e0e0'],borderWidth:2}]},options:{plugins:{legend:{position:'bottom'}}}});
+  new Chart(document.getElementById('cAnonAssets'),{type:'pie',data:{labels:['[0, 80000[','≥80000','Suppressed (*)'],datasets:[{data:[340,130,30],backgroundColor:['#fb8c00','#8e24aa','#e0e0e0'],borderWidth:2}]},options:{plugins:{legend:{position:'bottom'}}}});
+}
+</script>
+</body>
+</html>
