@@ -6,6 +6,170 @@
 <title>Data Privacy by Design – Digital Financial Advisor</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
+      <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        thead {
+            background: #f8f9fa;
+            border-bottom: 3px solid #667eea;
+        }
+        th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 14px;
+            color: #555;
+        }
+        tbody tr:hover {
+            background: #f8f9fa;
+            transition: background 0.2s ease;
+        }
+        .category-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .category-identifying {
+            background: #ffe5e5;
+            color: #d32f2f;
+        }
+        .category-quasi {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        .category-sensitive {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+        .category-insensitive {
+            background: #e8f5e9;
+            color: #388e3c;
+        }
+        .risk-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .risk-critical {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .risk-high {
+            background: #ffe0b2;
+            color: #e65100;
+        }
+        .risk-medium {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+        .risk-low {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .decision-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .decision-suppressed {
+            background: #ffcdd2;
+            color: #b71c1c;
+        }
+        .decision-generalized {
+            background: #ffe0b2;
+            color: #e65100;
+        }
+        .decision-encrypted {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+        .decision-retained {
+            background: #c8e6c9;
+            color: #1b5e20;
+        }
+        .rationale-text {
+            line-height: 1.6;
+            color: #666;
+        }
+        .example {
+            display: block;
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: #f5f5f5;
+            border-left: 3px solid #667eea;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #333;
+            border-radius: 4px;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            border-top: 1px solid #e9ecef;
+        }
+    
   :root{--p:#1a73e8;--pd:#0d47a1;--bg:#f0f4f8;--card:#fff;--muted:#64748b;--border:#e2e8f0;--sw:255px}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:#1e293b;display:flex;min-height:100vh}
@@ -88,7 +252,10 @@
 <nav id="sb">
   <div class="brand">
     <h2>🔐 Data Privacy by Design</h2>
-    <p>Digital Financial Advisor<br>Linh HOANG Thuy – DSA S1 2026</p>
+    <p>Dataset: Digital Financial Advisor <br>Siva karthik reddy Padigi reddy - 
+Arun kumar reddy Pulicanti –
+Linh HOANG Thuy – Raghavendra Mutyala
+ DSA S1 2026</p>
   </div>
   <nav>
     <a onclick="show('home')" id="n-home" class="active">🏠 Overview</a>
@@ -108,13 +275,17 @@
 <!-- HOME -->
 <div class="pg active" id="home">
   <div class="hero">
-    <h1>Digital Financial Advisor — Privacy Report</h1>
-    <p>A comprehensive Data Privacy by Design (PbD) analysis: dataset profiling, LINDDUN threat modeling, ARX anonymization, PETs solutions, and GDPR compliance.</p>
+    <h1>Digital Financial Advisor </h1>
+    <p>Data Privacy by Design (PbD) analysis: dataset profiling, LINDDUN threat modeling, ARX anonymization, PETs solutions, and GDPR compliance.</p>
     <div class="meta">
-      <span>📊 500 Records · 15 Attributes</span>
-      <span>👤 Linh HOANG Thuy</span>
-      <span>🎓 EPITA DSA S1 2026</span>
-      <span>📋 Sections 1–7</span>
+      
+      <span> Linh HOANG Thuy</span>
+<span> Siva karthik reddy Padigi reddy  </span>
+<span>Arun kumar reddy Pulicanti</span>
+      <span>Raghavendra Mutyala
+</span>
+      <span> DSA S1 2026</span>
+     
     </div>
   </div>
   <div class="sg">
@@ -126,7 +297,7 @@
     <div class="sc"><div class="v">30</div><div class="l">Suppressed Records</div></div>
   </div>
   <div class="card">
-    <h3>📌 Report Structure</h3>
+    <h3> Report Structure</h3>
     <div class="tw"><table>
       <tr><th>Section</th><th>Topic</th><th>Key Deliverable</th></tr>
       <tr><td>§1</td><td>Dataset Explanation</td><td>Column-by-column analysis, identifier classification</td></tr>
@@ -154,23 +325,152 @@
   <div class="card">
     <h3>📋 Column-by-Column Analysis</h3>
     <div class="tw"><table>
-      <tr><th>Column</th><th>Type</th><th>Example</th><th>Format</th><th>Classification</th></tr>
-      <tr><td><b>Name</b></td><td>Qualitative</td><td>Michael Cameron</td><td>Text string</td><td><span class="b bd">Direct Identifier</span></td></tr>
-      <tr><td><b>Age</b></td><td>Quantitative Discrete</td><td>32</td><td>Integer (18–70)</td><td><span class="b bi">Quasi-Identifier</span></td></tr>
-      <tr><td><b>Location</b></td><td>Qualitative</td><td>Port Stephenton, Gabon</td><td>City + Country</td><td><span class="b bi">Quasi-Identifier</span></td></tr>
-      <tr><td><b>Gender</b></td><td>Qualitative</td><td>Male/Female/Non-binary</td><td>Text string</td><td><span class="b bi">Quasi-Identifier</span></td></tr>
-      <tr><td><b>Income</b></td><td>Quantitative Continuous</td><td>8576.35</td><td>Decimal/float</td><td><span class="b bi">Quasi-ID + Sensitive</span></td></tr>
-      <tr><td><b>Assets</b></td><td>Quantitative Continuous</td><td>63086.90</td><td>Decimal/float</td><td><span class="b bi">Quasi-Identifier</span></td></tr>
-      <tr><td><b>Debts</b></td><td>Quantitative Continuous</td><td>3921.93</td><td>Decimal/float</td><td><span class="b bs">Sensitive Financial</span></td></tr>
-      <tr><td><b>Monthly Expenses</b></td><td>Quantitative Continuous</td><td>3046.87</td><td>Decimal/float</td><td><span class="b bs">Sensitive Financial</span></td></tr>
-      <tr><td><b>Investment Preference</b></td><td>Qualitative</td><td>Fixed Deposits / Gold</td><td>Text string</td><td><span class="b bs">Sensitive</span></td></tr>
-      <tr><td><b>Type of Advice Sought</b></td><td>Qualitative</td><td>Tax Planning</td><td>Text string</td><td><span class="b bs">Sensitive</span></td></tr>
-      <tr><td><b>User Financial Goal</b></td><td>Qualitative</td><td>Tax Savings</td><td>Text string</td><td><span class="b bs">Sensitive</span></td></tr>
-      <tr><td><b>Action Based on Advice</b></td><td>Qualitative Ordinal</td><td>Implemented</td><td>Text string</td><td><span class="b bn">Insensitive</span></td></tr>
-      <tr><td><b>Feedback on Advice</b></td><td>Qualitative Ordinal</td><td>Very Satisfied</td><td>Text string</td><td><span class="b bn">Insensitive</span></td></tr>
-      <tr><td><b>App Usability Feedback</b></td><td>Qualitative Ordinal</td><td>Unsatisfied</td><td>Text string</td><td><span class="b bn">Insensitive</span></td></tr>
-      <tr><td><b>Trust Level</b></td><td>Qualitative Ordinal</td><td>High/Low/Moderate</td><td>Text string</td><td><span class="b bn">Insensitive</span></td></tr>
+      <tr>
+        <th>Column</th>
+        <th>Data Type</th>
+        <th>Example</th>
+        <th>Category</th>
+        <th>Properties</th>
+        <th>Format</th>
+        <th>Other Specification (Direct vs Indirect Identifiers)</th>
+      </tr>
+      <tr>
+        <td><b>Name</b></td>
+        <td>Qualitative</td>
+        <td>Michael Cameron</td>
+        <td>Categorical</td>
+        <td>Person name; unique label for a respondent</td>
+        <td>Text string</td>
+        <td><span class="b bd">Direct identifier</span></td>
+      </tr>
+      <tr>
+        <td><b>Age</b></td>
+        <td>Quantitative</td>
+        <td>32</td>
+        <td>Discrete</td>
+        <td>Numeric, whole-number age; non-negative</td>
+        <td>Integer</td>
+        <td><span class="b bi">Indirect identifier</span></td>
+      </tr>
+      <tr>
+        <td><b>Location</b></td>
+        <td>Qualitative</td>
+        <td>Port Stephenton, Gabon</td>
+        <td>Categorical</td>
+        <td>Geographic location; composed of city/town + country</td>
+        <td>Text string</td>
+        <td><span class="b bi">Indirect identifier</span></td>
+      </tr>
+      <tr>
+        <td><b>Gender</b></td>
+        <td>Qualitative</td>
+        <td>Male / Female / Non-binary</td>
+        <td>Categorical</td>
+        <td>Demographic category; no inherent order</td>
+        <td>Text string</td>
+        <td><span class="b bi">Indirect identifier</span></td>
+      </tr>
+      <tr>
+        <td><b>Income</b></td>
+        <td>Quantitative</td>
+        <td>8576.35</td>
+        <td>Continuous</td>
+        <td>Monetary amount; can include decimals</td>
+        <td>Decimal / float</td>
+        <td><span class="b bs">Sensitive attribute; not an identifier by itself, but may become indirect when combined</span></td>
+      </tr>
+      <tr>
+        <td><b>Assets</b></td>
+        <td>Quantitative</td>
+        <td>63086.9</td>
+        <td>Continuous</td>
+        <td>Monetary amount; can vary continuously</td>
+        <td>Decimal / float</td>
+        <td><span class="b bs">Sensitive financial attribute</span></td>
+      </tr>
+      <tr>
+        <td><b>Debts</b></td>
+        <td>Quantitative</td>
+        <td>3921.93</td>
+        <td>Continuous</td>
+        <td>Monetary amount; zero is meaningful</td>
+        <td>Decimal / float</td>
+        <td><span class="b bs">Sensitive financial attribute</span></td>
+      </tr>
+      <tr>
+        <td><b>Monthly Expenses</b></td>
+        <td>Quantitative</td>
+        <td>3046.87</td>
+        <td>Continuous</td>
+        <td>Monetary amount; can include decimals</td>
+        <td>Decimal / float</td>
+        <td><span class="b bs">Sensitive financial attribute</span></td>
+      </tr>
+      <tr>
+        <td><b>Investment Preference</b></td>
+        <td>Qualitative</td>
+        <td>Fixed Deposits / Gold / Stocks</td>
+        <td>Categorical</td>
+        <td>Preference category; no natural order</td>
+        <td>Text string</td>
+        <td><span class="b bn">Not an identifier</span></td>
+      </tr>
+      <tr>
+        <td><b>Type of Advice Sought</b></td>
+        <td>Qualitative</td>
+        <td>Tax Planning / Retirement Planning</td>
+        <td>Categorical</td>
+        <td>Advice-topic category; no natural order</td>
+        <td>Text string</td>
+        <td><span class="b bn">Not an identifier</span></td>
+      </tr>
+      <tr>
+        <td><b>User Financial Goal</b></td>
+        <td>Qualitative</td>
+        <td>Tax Savings / Increase Savings</td>
+        <td>Categorical</td>
+        <td>Goal category; no natural order</td>
+        <td>Text string</td>
+        <td><span class="b bn">Not an identifier</span></td>
+      </tr>
+      <tr>
+        <td><b>Action Based on Advice</b></td>
+        <td>Qualitative</td>
+        <td>Implemented / Not Implemented / Partially Implemented</td>
+        <td>Categorical, partly ordinal</td>
+        <td>Describes action outcome; ordered in practice by level of adoption</td>
+        <td>Text string</td>
+        <td><span class="b bn">Not an identifier</span></td>
+      </tr>
+      <tr>
+        <td><b>Feedback on Advice</b></td>
+        <td>Qualitative</td>
+        <td>Very Unsatisfied / Neutral / Very Satisfied</td>
+        <td>Ordinal categorical</td>
+        <td>Ordered satisfaction scale</td>
+        <td>Text string</td>
+        <td><span class="b bn">Not an identifier</span></td>
+      </tr>
+      <tr>
+        <td><b>App Usability Feedback</b></td>
+        <td>Qualitative</td>
+        <td>Unsatisfied / Satisfied / Very Satisfied</td>
+        <td>Ordinal categorical</td>
+        <td>Ordered usability rating</td>
+        <td>Text string</td>
+        <td><span class="b bn">Not an identifier</span></td>
+      </tr>
+      <tr>
+        <td><b>Trust Level with Digital Advisor</b></td>
+        <td>Qualitative</td>
+        <td>Low / Moderate / High</td>
+        <td>Ordinal categorical</td>
+        <td>Ordered trust scale</td>
+        <td>Text string</td>
+        <td><span class="b bn">Not an identifier</span></td>
+      </tr>
     </table></div>
+
   </div>
   <div class="cg">
     <div class="cb"><h4>Gender Distribution</h4><canvas id="cGender"></canvas></div>
@@ -178,7 +478,7 @@
     <div class="cb"><h4>Type of Advice Sought</h4><canvas id="cAdvice"></canvas></div>
     <div class="cb"><h4>Trust Level with Advisor</h4><canvas id="cTrust"></canvas></div>
   </div>
-  <div class="hl">⚠️ <b>Re-identification Risk:</b> Name + Location + Age is sufficient to uniquely identify most individuals. Without Name, Gender + Income + Location still creates a near-unique behavioral fingerprint.</div>
+  <div class="hl"><b>Re-identification Risk:</b> Name + Location + Age is sufficient to uniquely identify most individuals. Without Name, Gender + Income + Location still creates a near-unique behavioral fingerprint.</div>
 </div>
 
 <!-- S2 -->
@@ -187,42 +487,12 @@
   <div class="ps">High-level Data Flow Diagram covering all major system components</div>
   <div class="card">
     <h3>🗺️ Data Flow Diagram — Digital Financial Advisor Platform</h3>
-    <div class="dfd">
-      <div class="dr">
-        <div class="dn ext"><strong>👤 End User</strong>Registers, inputs financial profile, receives advice</div>
-        <div class="da">→</div>
-        <div class="dn pr"><strong>⚙️ Auth & Onboarding</strong>Identity verification, consent collection, profile creation</div>
-        <div class="da">→</div>
-        <div class="dn st"><strong>🗄️ User Profile DB</strong>Name, Age, Location, Gender, Income, Assets, Debts, Expenses</div>
-      </div>
-      <div style="display:flex;justify-content:center"><div style="width:2px;background:#90caf9;height:28px"></div></div>
-      <div class="dr">
-        <div class="dn st"><strong>🗄️ Behavioral Log DB</strong>Investment Pref, Advice Type, Goal, Action, Feedback</div>
-        <div class="da">←</div>
-        <div class="dn pr"><strong>⚙️ Financial Advisory Engine</strong>Analyzes profile, generates personalized advice</div>
-        <div class="da">←</div>
-        <div class="dn pr"><strong>⚙️ Data Ingestion</strong>Sanitizes inputs, strips PII titles, validates formats</div>
-      </div>
-      <div style="display:flex;justify-content:center"><div style="width:2px;background:#90caf9;height:28px"></div></div>
-      <div class="dr">
-        <div class="dn ext"><strong>📊 Analytics Dashboard</strong>Aggregate reports, DP-protected insights</div>
-        <div class="da">←</div>
-        <div class="dn pr"><strong>⚙️ Anonymization Pipeline</strong>ARX k-anonymity, generalization, suppression</div>
-        <div class="da">←</div>
-        <div class="dn st"><strong>🗄️ Anonymized Dataset</strong>Generalized quasi-IDs, suppressed outliers</div>
-      </div>
-      <div style="display:flex;justify-content:center"><div style="width:2px;background:#90caf9;height:28px"></div></div>
-      <div class="dr">
-        <div class="dn ext"><strong>🏛️ Regulatory / Audit</strong>GDPR reports, RoPA, DPA notifications</div>
-        <div class="da">←</div>
-        <div class="dn pr"><strong>⚙️ Compliance Module</strong>Consent management, data subject rights (Art.15-22)</div>
-        <div class="da">←</div>
-        <div class="dn st"><strong>🗄️ Consent & Audit Log</strong>Consent records, TTL-expiry behavioral data</div>
-      </div>
-    </div>
+    <div class="tw">
+  <img src="diagram.png" alt="Data Dictionary Table" style="max-width: 100%; height: auto;">
+</div>
   </div>
   <div class="card">
-    <h3>🔑 Key Data Flows & Privacy Boundaries</h3>
+    <h3> Key Data Flows & Privacy Boundaries</h3>
     <div class="tw"><table>
       <tr><th>Flow</th><th>Data Involved</th><th>Privacy Concern</th><th>Control</th></tr>
       <tr><td>User → Onboarding</td><td>Name, Age, Location, Gender, Income, Assets</td><td>Direct + Quasi-ID collection</td><td>Consent gate, data minimization</td></tr>
@@ -241,66 +511,224 @@
   <div class="ps">7 threat categories applied to the Digital Financial Advisor system</div>
   <div class="tg">
     <div class="tc tL">
-      <h4>🔗 L — Linkability</h4>
+      <h4>L — Linkability</h4>
+      <p><i>Linking two items of interest without knowing the identity of the data subject</i></p>
       <ul>
-        <li><b>L1.1:</b> Name + Location + Age → cross-dataset re-identification</li>
-        <li><b>L1.2:</b> Gender + Income + Investment Pref → behavioral fingerprint</li>
-        <li><b>L1.3:</b> Income + Assets + Debts → linkable to credit/tax databases</li>
-        <li><b>L1.4:</b> Repeated "Seeking Further Consultation" → persistent anxiety pattern</li>
+        <li><b>1.1 Hotspot: Data Collection for User Profile Registration</b>
+          <ul>
+            <li>1.1.1 Name + Location + Age → quasi-identifier cluster → cross-dataset re-identification</li>
+            <li>1.1.2 Gender + Income + Investment Preference → behavioral fingerprint → linkable to public records</li>
+            <li>1.1.3 Financial Goal + Type of Advice Sought → behavioral signature → cross-session/platform linkage</li>
+          </ul>
+        </li>
+        <li><b>1.2 Hotspot: Financial Data Processing & Storage</b>
+          <ul>
+            <li>1.2.1 Income + Assets + Debts → precise financial profile → linkable to credit bureau / tax databases</li>
+            <li>1.2.2 Monthly Expenses + Investment Preference → spending pattern → linkable to bank/e-commerce transaction history</li>
+            <li>1.2.3 Debts ($0.00) + Action Based on Advice → distinct behavioral cluster → linkable across financial service providers</li>
+          </ul>
+        </li>
+        <li><b>1.3 Hotspot: Feedback & Behavioral Data Collection</b>
+          <ul>
+            <li>1.3.1 App Usability Feedback + Trust Level → behavioral-attitudinal profile → linkable to session logs / A/B testing records</li>
+            <li>1.3.2 Action Based on Advice + Feedback on Advice → longitudinal behavioral pattern → linkable to future interactions / support tickets</li>
+            <li>1.3.3 Repeated "Seeking Further Consultation" → persistent financial anxiety pattern → cross-session linkage</li>
+          </ul>
+        </li>
       </ul>
     </div>
+
     <div class="tc tI">
-      <h4>🎯 I — Identifiability</h4>
+      <h4>I — Identifiability</h4>
+      <p><i>Sufficiently identifying the data subject within a dataset</i></p>
       <ul>
-        <li><b>I2.1:</b> Full Name field → direct identifier</li>
-        <li><b>I2.2:</b> Rare Location (Bouvet Island, Cocos Islands) → near-unique</li>
-        <li><b>I2.3:</b> Professional titles in Name (DDS, MD) → cross-referenceable</li>
-        <li><b>I2.4:</b> Income + Assets + Debts + Expenses → unique financial fingerprint</li>
+        <li><b>2.1 Hotspot: Direct Identity Data Collection</b>
+          <ul>
+            <li>2.1.1 Full Name field → direct identifier → especially with professional titles (Dr., Mrs., Mr.)</li>
+            <li>2.1.2 Name + Location → globally unique combination → small/remote locations amplify risk</li>
+            <li>2.1.3 Precise Income values (e.g., 8576.35) → quasi-identifier → matchable to payroll / tax records</li>
+          </ul>
+        </li>
+        <li><b>2.2 Hotspot: Demographic Data Processing</b>
+          <ul>
+            <li>2.2.1 Age + Gender + Location → sufficient for unique identification → especially in small territories</li>
+            <li>2.2.2 Rare Location (e.g., Bouvet Island, Cocos Islands) → near-unique by location alone → extremely small populations</li>
+            <li>2.2.3 Professional titles in Name field (DDS, MD) → cross-referenceable → professional licensing registries</li>
+          </ul>
+        </li>
+        <li><b>2.3 Hotspot: Financial Profile Usage</b>
+          <ul>
+            <li>2.3.1 Income + Assets + Debts + Monthly Expenses → unique financial fingerprint → re-identification even without name</li>
+            <li>2.3.2 Extreme financial value combinations → statistically rare profiles → identifiable via financial institution records</li>
+          </ul>
+        </li>
+        <li><b>2.4 Hotspot: Advice & Behavioral Data</b>
+          <ul>
+            <li>2.4.1 Advice Type + Investment Preference + Goal + Action → behavioral signature → cross-referenceable with advisor logs</li>
+            <li>2.4.2 High Trust + Very Unsatisfied feedback → psychologically distinctive group → identifiable via CRM systems</li>
+          </ul>
+        </li>
       </ul>
     </div>
+
     <div class="tc tN">
-      <h4>📝 N — Non-Repudiation</h4>
+      <h4>N — Non-Repudiation</h4>
+      <p><i>Data subject cannot deny having performed an action or having certain attributes</i></p>
       <ul>
-        <li><b>N3.1:</b> Action logs permanently link user to financial decisions</li>
-        <li><b>N3.2:</b> Feedback records create non-deniable behavioral history</li>
-        <li><b>N3.3:</b> Audit trails may prevent exercising right to erasure (Art. 17)</li>
+        <li><b>3.1 Hotspot: User Action Logging</b>
+          <ul>
+            <li>3.1.1 "Implemented" / "Not Implemented" records → permanent compliance log → usable in legal/insurance disputes</li>
+            <li>3.1.2 Timestamped advice compliance → non-deniable risk awareness → platform liability shield</li>
+            <li>3.1.3 "Seeking Further Consultation" → acknowledgment of advice received → user cannot deny awareness</li>
+          </ul>
+        </li>
+        <li><b>3.2 Hotspot: Feedback Submission</b>
+          <ul>
+            <li>3.2.1 Feedback on Advice → permanent attributable opinion → usable in regulatory audits</li>
+            <li>3.2.2 App Usability Feedback → non-repudiable interaction record → proves active platform engagement at specific time</li>
+            <li>3.2.3 Trust Level declaration → permanent trust statement → justifies automated decisions made on user's behalf</li>
+          </ul>
+        </li>
+        <li><b>3.3 Hotspot: Financial Data Submission</b>
+          <ul>
+            <li>3.3.1 Income + Assets + Debts submission → non-deniable financial disclosure → subpoenable in legal proceedings</li>
+            <li>3.3.2 Investment Preference declaration → binding risk appetite record → usable against user in high-risk investment disputes</li>
+          </ul>
+        </li>
       </ul>
     </div>
+
     <div class="tc tD">
-      <h4>👁️ D — Detectability</h4>
+      <h4>D — Detectability</h4>
+      <p><i>Distinguishing whether an item of interest exists, even without knowing content</i></p>
       <ul>
-        <li><b>D4.1:</b> "High ROI Investments" goal → wealth signal detectable</li>
-        <li><b>D4.2:</b> API query patterns reveal financial interest categories</li>
-        <li><b>D4.3:</b> Endpoint access frequency → detectable behavioral signature</li>
+        <li><b>4.1 Hotspot: User Presence Detection</b>
+          <ul>
+            <li>4.1.1 Cryptocurrency/Stocks + High Trust → high-value target signal → detectable via API traffic patterns</li>
+            <li>4.1.2 Debts > 0 + Expenses ≈ Income → financially distressed profile → detectable without accessing values</li>
+            <li>4.1.3 "Debt Management" advice queries → financial distress signal → detectable via endpoint frequency metadata</li>
+          </ul>
+        </li>
+        <li><b>4.2 Hotspot: Behavioral Pattern Detection</b>
+          <ul>
+            <li>4.2.1 High retirement planning query frequency → demographic segment signal → detectable via encrypted traffic analysis</li>
+            <li>4.2.2 "Not Implemented" + "Very Unsatisfied" cluster → churn risk pattern → exploitable by competitors</li>
+            <li>4.2.3 Debts = 0.0 prevalence → debt-free / asset-rich demographic → detectable target for investment fraud</li>
+          </ul>
+        </li>
+        <li><b>4.3 Hotspot: Profile Existence Detection</b>
+          <ul>
+            <li>4.3.1 Name/location enumeration attack → profile existence confirmation → no content access needed</li>
+            <li>4.3.2 Consistent "Not Implemented" pattern → non-compliance flag → visible to third parties via data-sharing agreements</li>
+          </ul>
+        </li>
       </ul>
     </div>
+
     <div class="tc tDi">
-      <h4>📢 Di — Disclosure</h4>
+      <h4>Di — Disclosure of Information</h4>
+      <p><i>Exposing data to parties that should not have access</i></p>
       <ul>
-        <li><b>Di5.1:</b> Unencrypted financial data in transit/at rest</li>
-        <li><b>Di5.2:</b> Insider access to full profile without need-to-know</li>
-        <li><b>Di5.3:</b> Analytics exports containing individual-level records</li>
+        <li><b>5.1 Hotspot: Data Collection & Storage</b>
+          <ul>
+            <li>5.1.1 Full financial profile in single record → breach → enables identity theft + targeted fraud</li>
+            <li>5.1.2 Location + high Assets → geographic wealth disclosure → physical security risk (robbery, kidnapping)</li>
+            <li>5.1.3 Debts exposure → financial vulnerability revealed → harm from employers / family / creditors</li>
+          </ul>
+        </li>
+        <li><b>5.2 Hotspot: Third-Party Data Sharing</b>
+          <ul>
+            <li>5.2.1 Full dataset shared with AI models → violates data minimization → risk of training pipeline leakage</li>
+            <li>5.2.2 Small-group analytics reports → k-anonymity violation → individual-level data inferred from aggregates</li>
+            <li>5.2.3 Investment Preference → shared with partner platforms → commercial exploitation without consent</li>
+          </ul>
+        </li>
+        <li><b>5.3 Hotspot: Feedback & Satisfaction Data</b>
+          <ul>
+            <li>5.3.1 Negative feedback disclosed to identifiable advisors → chilling effect → discriminatory service risk</li>
+            <li>5.3.2 Trust Level → disclosed to marketing teams → enables targeted manipulation campaigns</li>
+            <li>5.3.3 App Usability Feedback + identity data → disclosed to developers → unnecessary personal data exposure</li>
+          </ul>
+        </li>
+        <li><b>5.4 Hotspot: Data Transmission</b>
+          <ul>
+            <li>5.4.1 Financial values in transit without E2E encryption → MITM attack risk → especially in high-risk regions</li>
+            <li>5.4.2 System logs recording advice queries → inadvertent financial distress disclosure → exposed to log aggregation services</li>
+          </ul>
+        </li>
       </ul>
     </div>
+
     <div class="tc tU">
-      <h4>😶 U — Unawareness</h4>
+      <h4>U — Unawareness</h4>
+      <p><i>Data subject unaware of collection, processing, or sharing of their data</i></p>
       <ul>
-        <li><b>U6.1:</b> Users unaware of behavioral profiling from advice interactions</li>
-        <li><b>U6.2:</b> No visibility into how financial goals influence recommendations</li>
-        <li><b>U6.3:</b> Lack of transparency on data retention periods</li>
+        <li><b>6.1 Hotspot: Data Collection at Onboarding</b>
+          <ul>
+            <li>6.1.1 Age + Location + Gender → quasi-identifier risk unknown to user → believes data is innocuous</li>
+            <li>6.1.2 Precise financial figures → unique financial fingerprint → persists after name removal, unknown to user</li>
+            <li>6.1.3 Professional titles in name → cross-referenceable with licensing databases → user unaware of exposure</li>
+          </ul>
+        </li>
+        <li><b>6.2 Hotspot: Data Processing for Advice</b>
+          <ul>
+            <li>6.2.1 Investment Preference + Goal + Advice Type → behavioral profiling → may affect credit scoring / insurance / ads</li>
+            <li>6.2.2 Financial data retention after account closure → ongoing risk → user unaware of retention duration</li>
+            <li>6.2.3 Multi-session action history → longitudinal behavioral profile → used for predictive modeling without awareness</li>
+          </ul>
+        </li>
+        <li><b>6.3 Hotspot: Data Sharing</b>
+          <ul>
+            <li>6.3.1 Investment Preference → shared with partner platforms → triggers targeted solicitations unknown to user</li>
+            <li>6.3.2 Feedback data → contributes to user scoring models → affects service quality / pricing without disclosure</li>
+            <li>6.3.3 Location in risk zones → triggers automated risk flags → affects advice quality without user knowledge</li>
+          </ul>
+        </li>
+        <li><b>6.4 Hotspot: Behavioral Inference</b>
+          <ul>
+            <li>6.4.1 Age + Income + Expenses → inferred sensitive attributes (health, relationship status) → not explicitly provided</li>
+            <li>6.4.2 Trust Level stored persistently → calibrates advisor autonomy → user unaware of downstream implications</li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>
+
   <div class="tc tNC" style="margin-top:14px;border-radius:12px;padding:16px;border-left:5px solid #546e7a;background:#f5f7f8">
-    <h4>⚖️ NC — Non-Compliance</h4>
+    <h4>NC — Non-Compliance</h4>
+    <p><i>Processing not compliant with data protection laws or organizational policies</i></p>
     <ul style="columns:2;gap:20px">
-      <li><b>NC7.1:</b> No explicit legal basis documented per processing activity</li>
-      <li><b>NC7.2:</b> Missing RoPA — GDPR Art. 30</li>
-      <li><b>NC7.3:</b> No consent withdrawal mechanism for behavioral data</li>
-      <li><b>NC7.4:</b> Cross-border transfers without SCCs/adequacy decisions</li>
-      <li><b>NC7.5:</b> No DPIA despite high-risk financial profiling</li>
+      <li><b>7.1 Hotspot: Data Collection</b>
+        <ul>
+          <li>7.1.1 All fields collected simultaneously → violates data minimization → GDPR Art. 5(1)(c)</li>
+          <li>7.1.2 "Non-binary" Gender field → potential special category data → requires explicit consent → GDPR Art. 9</li>
+          <li>7.1.3 Users aged 18–19 → minor data collection → parental consent mechanisms likely absent → GDPR / COPPA</li>
+        </ul>
+      </li>
+      <li><b>7.2 Hotspot: Data Storage & Retention</b>
+        <ul>
+          <li>7.2.1 No defined retention periods → violates storage limitation → GDPR Art. 5(1)(e)</li>
+          <li>7.2.2 Financial data in plaintext CSV → no encryption → violates GDPR Art. 32 / PCI-DSS</li>
+          <li>7.2.3 Users across multiple jurisdictions → cross-border transfer without SCCs → violates GDPR Chapter V</li>
+        </ul>
+      </li>
+      <li><b>7.3 Hotspot: Data Processing & Usage</b>
+        <ul>
+          <li>7.3.1 No documented legal basis for processing financial data → GDPR Art. 6 violation</li>
+          <li>7.3.2 Automated advice without transparency / human review → violates GDPR Art. 22 (automated decision-making)</li>
+          <li>7.3.3 High-debt users profiled as high-risk without disclosure → violates CFPB / EU Consumer Credit Directive</li>
+        </ul>
+      </li>
+      <li><b>7.4 Hotspot: Data Sharing & Disclosure</b>
+        <ul>
+          <li>7.4.1 Profile sharing with third-party platforms without consent → violates GDPR Art. 6 / GLBA / PSD2</li>
+          <li>7.4.2 Feedback repurposed for marketing/scoring → violates purpose limitation → GDPR Art. 5(1)(b)</li>
+          <li>7.4.3 No mechanism for data subject rights → violates GDPR Art. 15–22 (Access, Erasure, Rectification)</li>
+        </ul>
+      </li>
     </ul>
   </div>
+
 </div>
 
 <!-- S4 -->
@@ -349,22 +777,307 @@
 <div class="pg" id="s5">
   <div class="pt">§5 — ARX Decision Rationale</div>
   <div class="ps">Input specifications, transformation choices, and privacy model justifications</div>
+  
   <div class="card">
-    <h3>⚙️ Input Specification Decisions</h3>
-    <div class="tw"><table>
-      <tr><th>Attribute → Decision</th><th>Rationale</th></tr>
-      <tr><td>Name → <span class="tt tt-s">Identifying / Suppressed</span></td><td>Direct identifier — no analytical value. Removed per GDPR Art. 25. Suppressed to * in output.</td></tr>
-      <tr><td>Location → <span class="tt tt-s">Identifying / Suppressed</span></td><td>City+Country near-unique for rare territories (Bouvet Island, Cocos Islands). Suppressed to prevent geographic re-identification.</td></tr>
-      <tr><td>Age → <span class="tt tt-g">Quasi-ID / Generalized</span></td><td>Exact age enables re-identification with Gender+Location. Generalized to [0,80[ covering all ages 18–70.</td></tr>
-      <tr><td>Gender → <span class="tt tt-g">Quasi-ID / Generalized</span></td><td>3-level hierarchy: exact → Person → *. Retained at level 0 for most records; suppressed for rare combinations.</td></tr>
-      <tr><td>Income → <span class="tt tt-g">Quasi-ID / Generalized</span></td><td>Precise income (e.g., 8576.35) matchable to payroll records. Generalized into 3 financial brackets: [0,5000[, [5000,8000[, ≥8000.</td></tr>
-      <tr><td>Assets → <span class="tt tt-g">Quasi-ID / Generalized</span></td><td>High-value assets create rare profiles. Generalized to [0,80000[ and ≥80000 preserving wealth-tier analytics.</td></tr>
-      <tr><td>Debts → <span class="tt tt-s">Quasi-ID / Suppressed</span></td><td>Many records have Debts=0 (distinctive). Combined with other attrs, creates highly unique combinations. Fully suppressed.</td></tr>
-      <tr><td>Monthly Expenses → <span class="tt tt-s">Quasi-ID / Suppressed</span></td><td>High-granularity continuous variable. Linkable to bank/e-commerce history. Suppressed to prevent behavioral fingerprinting.</td></tr>
-    </table></div>
+    <h3>⚙️ Data Classification Strategy</h3>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 12%;">Category</th>
+            <th style="width: 15%;">Attributes</th>
+            <th style="width: 35%;">Rationale & Example</th>
+            <th style="width: 13%;">Risk Level</th>
+            <th style="width: 13%;">ARX Decision</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- IDENTIFYING -->
+          <tr>
+            <td>
+              <span class="category-badge category-identifying">Identifying</span>
+            </td>
+            <td><strong>Name</strong></td>
+            <td>
+              <div class="rationale-text">
+                Direct identifier uniquely identifying an individual. No analytical value when retained. Enables immediate re-identification without any auxiliary data.
+                <span class="example">Example: Michael Cameron, Tiffany Silva</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-critical">CRITICAL</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-suppressed">Suppressed</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="category-badge category-identifying">Identifying</span>
+            </td>
+            <td><strong>Location</strong></td>
+            <td>
+              <div class="rationale-text">
+                City + Country combination creates near-unique geographic fingerprint. Rare territories (Bouvet Island, Cocos Islands) enable direct re-identification. 500 unique locations for 500 records = 100% uniqueness.
+                <span class="example">Example: Port Stephenton, Gabon | Gabrielstad, Bouvet Island</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-critical">CRITICAL</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-suppressed">Suppressed</span>
+            </td>
+          </tr>
+
+          <!-- QUASI-IDENTIFYING (GENERALIZED) -->
+          <tr>
+            <td>
+              <span class="category-badge category-quasi">Quasi-ID<br>(Generalized)</span>
+            </td>
+            <td><strong>Age</strong></td>
+            <td>
+              <div class="rationale-text">
+                Exact age (53 unique values, 18–70) enables re-identification when combined with Gender + Income. Generalized into 3 age brackets: [18–29], [30–49], [50+] to achieve k-anonymity ≥ 3.
+                <span class="example">Example: 32 → Age Bracket [30–49] | 67 → Age Bracket [50+]</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-high">HIGH</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-generalized">Generalized</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="category-badge category-quasi">Quasi-ID<br>(Generalized)</span>
+            </td>
+            <td><strong>Gender</strong></td>
+            <td>
+              <div class="rationale-text">
+                3-level categorical (Male, Female, Non-binary). "Non-binary" is rare (~167 records) and sensitive under GDPR Art. 9. Generalized to binary or suppressed for rare combinations. Quasi-identifier when combined with Income + Age.
+                <span class="example">Example: Non-binary → Suppressed in rare profiles | Male/Female → Retained</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-high">HIGH</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-generalized">Generalized</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="category-badge category-quasi">Quasi-ID<br>(Generalized)</span>
+            </td>
+            <td><strong>Income</strong></td>
+            <td>
+              <div class="rationale-text">
+                Precise income (500 unique values, range 2000–9970) is matchable to payroll/tax records. Generalized into 3 income brackets: Low [2000–5000), Mid [5000–8000), High [8000+] to reduce dimensionality and prevent linkage attacks.
+                <span class="example">Example: 8576.35 → Income Bracket [8000+] | 3939.77 → Income Bracket [2000–5000)</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-high">HIGH</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-generalized">Generalized</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="category-badge category-quasi">Quasi-ID<br>(Generalized)</span>
+            </td>
+            <td><strong>Assets</strong></td>
+            <td>
+              <div class="rationale-text">
+                High-value continuous variable (500 unique values, range 5609–99922). Creates rare wealth profiles. Generalized into 2 brackets: Moderate [5609–80000), High [80000+] to preserve wealth-tier analytics while reducing re-identification risk.
+                <span class="example">Example: 63086.9 → Assets Bracket [Moderate] | 99921.61 → Assets Bracket [High]</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-high">HIGH</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-generalized">Generalized</span>
+            </td>
+          </tr>
+
+          <!-- QUASI-IDENTIFYING (SUPPRESSED) -->
+          <tr>
+            <td>
+              <span class="category-badge category-quasi">Quasi-ID<br>(Suppressed)</span>
+            </td>
+            <td><strong>Debts</strong></td>
+            <td>
+              <div class="rationale-text">
+                High-granularity continuous variable (242 unique values). 259/500 records have Debts=0 (distinctive marker). Combined with Income + Assets + Age, creates 100% unique fingerprints. Fully suppressed to prevent behavioral re-identification.
+                <span class="example">Example: 3921.93, 0, 2039.2 → All suppressed (financial vulnerability signal)</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-high">HIGH</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-suppressed">Suppressed</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="category-badge category-quasi">Quasi-ID<br>(Suppressed)</span>
+            </td>
+            <td><strong>Monthly Expenses</strong></td>
+            <td>
+              <div class="rationale-text">
+                Highly granular continuous variable (500 unique values, range 507–4994). Linkable to bank/e-commerce transaction history. Spending patterns create behavioral fingerprints. Fully suppressed to prevent linkage attacks and behavioral profiling.
+                <span class="example">Example: 3046.87, 2654.24, 4059.88 → All suppressed (spending fingerprint)</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-high">HIGH</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-suppressed">Suppressed</span>
+            </td>
+          </tr>
+
+          <!-- SENSITIVE -->
+          <tr>
+            <td>
+              <span class="category-badge category-sensitive">Sensitive</span>
+            </td>
+            <td><strong>User Financial Goal</strong></td>
+            <td>
+              <div class="rationale-text">
+                Reveals personal financial objectives and vulnerabilities. Not a direct identifier but highly sensitive under GDPR Art. 9. High analytical value for segmentation. Retained but encrypted at rest (AES-256-GCM) and in transit (TLS 1.3). Access restricted to authorized analysts with immutable audit logging.
+                <span class="example">Example: Tax Savings, Debt Reduction, Retirement Fund Building</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-high">HIGH</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-encrypted">Encrypted</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="category-badge category-sensitive">Sensitive</span>
+            </td>
+            <td><strong>Type of Advice Sought</strong></td>
+            <td>
+              <div class="rationale-text">
+                Indicates financial needs and vulnerabilities (Debt Management, Investment Strategy, Tax Planning). Sensitive under GDPR but essential for product analytics. Encrypted (AES-256-GCM) and access-controlled. Aggregated only at segment level. Real-time audit alerts on access.
+                <span class="example">Example: Tax Planning, Retirement Planning, Debt Management</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-high">HIGH</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-encrypted">Encrypted</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="category-badge category-sensitive">Sensitive</span>
+            </td>
+            <td><strong>Investment Preference</strong></td>
+            <td>
+              <div class="rationale-text">
+                Reveals risk appetite and investment philosophy. May indirectly disclose political/religious views (e.g., Islamic finance, ESG preferences). Retained for portfolio analysis but encrypted (AES-256-GCM). Access limited to compliance-trained staff. Requires explicit consent per GDPR Art. 7.
+                <span class="example">Example: Cryptocurrency, Bonds, Real Estate, Gold, Mutual Funds</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-high">HIGH</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-encrypted">Encrypted</span>
+            </td>
+          </tr>
+
+          <!-- INSENSITIVE -->
+          <tr>
+            <td>
+              <span class="category-badge category-insensitive">Insensitive</span>
+            </td>
+            <td><strong>Action Based on Advice</strong></td>
+            <td>
+              <div class="rationale-text">
+                Describes action outcome (Implemented, Not Implemented, Partially Implemented, Seeking Further Consultation). No personal sensitivity. Low re-identification risk. Retained for product engagement metrics.
+                <span class="example">Example: Implemented, Partially Implemented, Not Implemented</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-low">LOW</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-retained">Retained</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="category-badge category-insensitive">Insensitive</span>
+            </td>
+            <td><strong>Feedback on Advice</strong></td>
+            <td>
+              <div class="rationale-text">
+                Ordinal satisfaction scale (Very Unsatisfied, Unsatisfied, Neutral, Satisfied, Very Satisfied). No personal sensitivity. Low re-identification risk. Retained for satisfaction analytics and quality metrics.
+                <span class="example">Example: Very Satisfied, Neutral, Very Unsatisfied</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-low">LOW</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-retained">Retained</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="category-badge category-insensitive">Insensitive</span>
+            </td>
+            <td><strong>App Usability Feedback</strong></td>
+            <td>
+              <div class="rationale-text">
+                Ordinal usability rating (Unsatisfied, Neutral, Satisfied, Very Satisfied). No personal sensitivity. Low re-identification risk. Retained for UX improvement and product analytics.
+                <span class="example">Example: Very Satisfied, Unsatisfied, Neutral</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-low">LOW</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-retained">Retained</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="category-badge category-insensitive">Insensitive</span>
+            </td>
+            <td><strong>Trust Level with Digital Advisor</strong></td>
+            <td>
+              <div class="rationale-text">
+                Ordinal trust scale (Low, Moderate, High). No personal sensitivity. Low re-identification risk. Retained for trust analytics and advisor performance metrics.
+                <span class="example">Example: High, Low, Moderate</span>
+              </div>
+            </td>
+            <td>
+              <span class="risk-badge risk-low">LOW</span>
+            </td>
+            <td>
+              <span class="decision-badge decision-retained">Retained</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+
   <div class="card">
-    <h3>🔒 Privacy Models Applied</h3>
+    <h3> Privacy Models Applied</h3>
     <div class="sg2">
       <div class="sc2">
         <div class="st">🔢 k-Anonymity (k=5)</div>
