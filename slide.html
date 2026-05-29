@@ -742,35 +742,144 @@ Linh HOANG Thuy – Raghavendra Mutyala
     <div class="sc"><div class="v">30</div><div class="l">Suppressed (6%)</div></div>
     <div class="sc"><div class="v">k=5</div><div class="l">k-Anonymity</div></div>
   </div>
+  
   <div class="card">
-    <h3>🏷️ Attribute Classification in ARX</h3>
+    <h3>ARX Certificate Summary</h3>
     <div class="tw"><table>
-      <tr><th>ARX Category</th><th>Attributes</th><th>Data Type</th></tr>
-      <tr><td><span class="b bd">Identifying</span></td><td>Name, Location</td><td>String</td></tr>
-      <tr><td><span class="b bi">Quasi-Identifying</span></td><td>Age, Gender, Income, Assets, Debts, Monthly Expenses</td><td>Integer / Decimal / String</td></tr>
-      <tr><td><span class="b bs">Sensitive</span></td><td>User Financial Goal, Type of Advice Sought, Investment Preference</td><td>String</td></tr>
-      <tr><td><span class="b bn">Insensitive</span></td><td>App Usability Feedback, Action Based on Advice, Feedback on Advice, Trust Level</td><td>String</td></tr>
+      <tr><th>Section</th><th>Line Item</th><th>Value / Description</th></tr>
+      <tr><td><b>PROJECT</b></td><td>Name</td><td>Digital Financial Advisor Dataset</td></tr>
+      <tr><td></td><td>Records</td><td>500 user records</td></tr>
+      <tr><td></td><td>Attributes</td><td>15 data fields per user</td></tr>
+      <tr><td><b>ATTRIBUTES</b></td><td>Identifying</td><td>Name, Location (fully removed)</td></tr>
+      <tr><td></td><td>Quasi-Identifying</td><td>Age, Gender, Income, Assets, Debts, Monthly Expenses (generalized)</td></tr>
+      <tr><td></td><td>Sensitive</td><td>User Financial Goal, Type of Advice Sought, Investment Preference (l-Diversity protected)</td></tr>
+      <tr><td></td><td>Insensitive</td><td>App Usability Feedback, Action Based on Advice, Feedback on Advice, Trust Level (retained)</td></tr>
+      <tr><td><b>GENERALIZATION LEVELS</b></td><td>Age</td><td>Level 5/5 (fully generalized to ranges)</td></tr>
+      <tr><td></td><td>Gender</td><td>Level 0/2 (no generalization, retained as-is)</td></tr>
+      <tr><td></td><td>Income</td><td>Level 1/3 (moderate: &lt;50k, 50-100k, 100-200k, 200k+)</td></tr>
+      <tr><td></td><td>Assets</td><td>Level 3/5 (high: &lt;1M, 1M+)</td></tr>
+      <tr><td></td><td>Debts</td><td>Level 4/4 (fully generalized: &lt;100k, 100k+)</td></tr>
+      <tr><td></td><td>Monthly Expenses</td><td>Level 4/4 (fully generalized: &lt;10k, 10k+)</td></tr>
+      <tr><td><b>PRIVACY MODELS</b></td><td>k-Anonymity</td><td>k=2 (each quasi-ID combination appears ≥2 times)</td></tr>
+      <tr><td></td><td>k-Map</td><td>k=5 (Name + quasi-ID combination appears ≥5 times)</td></tr>
+      <tr><td></td><td>l-Diversity (Goal)</td><td>l=2 (≥2 distinct Financial Goals per quasi-ID group)</td></tr>
+      <tr><td></td><td>l-Diversity (Preference)</td><td>l=2 (≥2 distinct Investment Preferences per quasi-ID group)</td></tr>
+      <tr><td></td><td>Disclosure Privacy</td><td>delta=1.0 (maximum protection for Type of Advice Sought)</td></tr>
+      <tr><td><b>RISK THRESHOLDS</b></td><td>Prosecutor Risk</td><td>0.5 (≤50% re-identification if attacker knows 1 person)</td></tr>
+      <tr><td></td><td>Journalist Risk</td><td>0.2 (≤20% re-identification if attacker knows quasi-ID)</td></tr>
+      <tr><td></td><td>Marketer Risk</td><td>0.2 (≤20% re-identification if attacker knows partial quasi-ID)</td></tr>
+      <tr><td><b>SEARCH SPACE</b></td><td>Total Solutions</td><td>10,800 possible anonymization schemes</td></tr>
+      <tr><td></td><td>Materialized</td><td>10,675 schemes evaluated (98.8%)</td></tr>
+      <tr><td><b>TRANSFORMATION RESULTS</b></td><td>Anonymity Status</td><td>Yes - Successfully anonymized</td></tr>
+      <tr><td></td><td>Information Loss</td><td>54.04% (minimum and maximum equal - optimal solution found)</td></tr>
+      <tr><td></td><td>Information Retained</td><td>45.96% utility preserved</td></tr>
+      <tr><td></td><td>Output Records</td><td>500 (no records deleted)</td></tr>
+      <tr><td></td><td>Output Attributes</td><td>15 (no columns deleted)</td></tr>
+      <tr><td></td><td>Data Integrity</td><td>SHA-256: 37a2f3e3772644387af9489af2d7e692330e2800da97f3e493b75cb1618c13d0</td></tr>
     </table></div>
   </div>
+
   <div class="card">
-    <h3>🌳 Generalization Hierarchies</h3>
+    <h3>Attribute Classification in ARX</h3>
     <div class="tw"><table>
-      <tr><th>Attribute</th><th>Height</th><th>Min</th><th>Max</th><th>Example</th></tr>
-      <tr><td>Income</td><td>4</td><td>0</td><td>3</td><td>8576.35 → [5000,8000[ → [0,10000[ → *</td></tr>
-      <tr><td>Gender</td><td>3</td><td>0</td><td>2</td><td>Male → Person → *</td></tr>
-      <tr><td>Age</td><td>2</td><td>0</td><td>1</td><td>32 → [17,35[ →[17,60[ *</td></tr>
-      <tr><td>Assets</td><td>3</td><td>0</td><td>2</td><td>63086.9 → [0,80000[ → *</td></tr>
-      <tr><td>Debts</td><td>—</td><td>—</td><td>—</td><td><span class="tt tt-s">Fully Suppressed (*)</span></td></tr>
-      <tr><td>Monthly Expenses</td><td>—</td><td>—</td><td>—</td><td><span class="tt tt-s">Fully Suppressed (*)</span></td></tr>
-      <tr><td>Name</td><td>—</td><td>—</td><td>—</td><td><span class="tt tt-s">Fully Suppressed (*)</span></td></tr>
-      <tr><td>Location</td><td>—</td><td>—</td><td>—</td><td><span class="tt tt-s">Fully Suppressed (*)</span></td></tr>
+      <tr><th>ARX Category</th><th>Attributes</th><th>Data Type</th><th>Treatment</th></tr>
+      <tr><td><b>Identifying</b></td><td>Name, Location</td><td>String</td><td>Fully suppressed (*)</td></tr>
+      <tr><td><b>Quasi-Identifying</b></td><td>Age, Gender, Income, Assets, Debts, Monthly Expenses</td><td>Integer / Decimal / String</td><td>Generalized to ranges</td></tr>
+      <tr><td><b>Sensitive</b></td><td>User Financial Goal, Type of Advice Sought, Investment Preference</td><td>String</td><td>l-Diversity protection applied</td></tr>
+      <tr><td><b>Insensitive</b></td><td>App Usability Feedback, Action Based on Advice, Feedback on Advice, Trust Level</td><td>String</td><td>Retained as-is</td></tr>
     </table></div>
   </div>
-  <div class="cg">
-    <div class="cb"><h4>Anonymized Income Brackets</h4><canvas id="cAnonIncome"></canvas></div>
-    <div class="cb"><h4>Anonymized Assets Brackets</h4><canvas id="cAnonAssets"></canvas></div>
+
+  <div class="card">
+    <h3>Generalization Hierarchies</h3>
+    <div class="tw"><table>
+      <tr><th>Attribute</th><th>Height</th><th>Min Level</th><th>Max Level</th><th>Generalization Path</th></tr>
+      <tr><td>Age</td><td>6</td><td>0</td><td>5</td><td>18, 19, 20... → 18-25, 26-35, 36-50, 51-65, 65+ → 18-65 → *</td></tr>
+      <tr><td>Gender</td><td>3</td><td>0</td><td>2</td><td>Male, Female, Non-binary → Male/Female, Non-binary → *</td></tr>
+      <tr><td>Income</td><td>4</td><td>0</td><td>3</td><td>75000, 80000... → &lt;50k, 50-100k, 100-200k, 200k+ → &lt;100k, 100-200k, 200k+ → *</td></tr>
+      <tr><td>Assets</td><td>6</td><td>0</td><td>5</td><td>250000, 500000... → &lt;100k, 100-500k, 500k-1M, 1M+ → &lt;1M, 1M+ → *</td></tr>
+      <tr><td>Debts</td><td>5</td><td>0</td><td>4</td><td>45000, 50000... → &lt;25k, 25-50k, 50-100k, 100k+ → &lt;100k, 100k+ → *</td></tr>
+      <tr><td>Monthly Expenses</td><td>5</td><td>0</td><td>4</td><td>3500, 4000... → &lt;2k, 2-5k, 5-10k, 10k+ → &lt;10k, 10k+ → *</td></tr>
+      <tr><td>Location</td><td>69</td><td>0</td><td>68</td><td>New York, London... → USA, UK... → North America, Europe... → *</td></tr>
+      <tr><td>Name</td><td>20</td><td>0</td><td>19</td><td>John Smith, Jane Doe... → Partial names → *</td></tr>
+    </table></div>
   </div>
-  <div class="hl">✅ <b>Consistency check:</b> The anonymized CSV confirms Name, Location, Debts, Monthly Expenses fully suppressed (*). Age generalized to [0,80[. Income → 3 brackets. Assets → 2 brackets. 30 outlier records fully suppressed (6% suppression rate — within acceptable threshold).</div>
+
+  <div class="card">
+    <h3>Applied Generalization Scheme</h3>
+    <div class="tw"><table>
+      <tr><th>Attribute</th><th>Applied Level</th><th>Status</th><th>Result</th></tr>
+      <tr><td>Age</td><td>5/5</td><td>Fully Generalized</td><td>All ages converted to ranges or suppressed</td></tr>
+      <tr><td>Gender</td><td>0/2</td><td>No Generalization</td><td>Male, Female, Non-binary retained</td></tr>
+      <tr><td>Income</td><td>1/3</td><td>Moderate Generalization</td><td>&lt;50k, 50-100k, 100-200k, 200k+</td></tr>
+      <tr><td>Assets</td><td>3/5</td><td>High Generalization</td><td>&lt;1M, 1M+</td></tr>
+      <tr><td>Debts</td><td>4/4</td><td>Fully Generalized</td><td>&lt;100k, 100k+ or suppressed</td></tr>
+      <tr><td>Monthly Expenses</td><td>4/4</td><td>Fully Generalized</td><td>&lt;10k, 10k+ or suppressed</td></tr>
+      <tr><td>Name</td><td>20/20</td><td>Fully Suppressed</td><td>* (completely removed)</td></tr>
+      <tr><td>Location</td><td>68/68</td><td>Fully Suppressed</td><td>* (completely removed)</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>Privacy Models Applied</h3>
+    <div class="tw"><table>
+      <tr><th>Privacy Model</th><th>Threshold</th><th>Definition</th><th>Protection</th></tr>
+      <tr><td>k-Anonymity</td><td>k=2</td><td>Each quasi-ID combination appears ≥2 times</td><td>Prevents singling out individuals</td></tr>
+      <tr><td>k-Map</td><td>k=5</td><td>Name + quasi-ID combination appears ≥5 times</td><td>Higher protection than k-anonymity</td></tr>
+      <tr><td>l-Diversity (Goal)</td><td>l=2</td><td>≥2 distinct User Financial Goals per quasi-ID group</td><td>Prevents inferring financial goals</td></tr>
+      <tr><td>l-Diversity (Preference)</td><td>l=2</td><td>≥2 distinct Investment Preferences per quasi-ID group</td><td>Prevents inferring investment behavior</td></tr>
+      <tr><td>Disclosure Privacy</td><td>delta=1.0</td><td>Maximum protection for Type of Advice Sought</td><td>Prevents inferring advice type from quasi-ID</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>Risk Assessment</h3>
+    <div class="tw"><table>
+      <tr><th>Risk Type</th><th>Threshold</th><th>Attacker Profile</th><th>Re-identification Probability</th></tr>
+      <tr><td>Prosecutor Risk</td><td>0.5</td><td>Attacker knows full identity (name, address, age)</td><td>≤50%</td></tr>
+      <tr><td>Journalist Risk</td><td>0.2</td><td>Attacker knows quasi-ID (age, gender, income)</td><td>≤20%</td></tr>
+      <tr><td>Marketer Risk</td><td>0.2</td><td>Attacker knows partial quasi-ID (age, income)</td><td>≤20%</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>Configuration Settings</h3>
+    <div class="tw"><table>
+      <tr><th>Setting</th><th>Value</th><th>Meaning</th></tr>
+      <tr><td>Attribute Weights</td><td>0.5 (all)</td><td>All attributes equally important (balanced)</td></tr>
+      <tr><td>Assume Monotonicity</td><td>No</td><td>Information loss can increase/decrease non-uniformly</td></tr>
+      <tr><td>Suppression Limit</td><td>1.0 (100%)</td><td>Allow deletion of up to 100% of records if necessary</td></tr>
+      <tr><td>Loss Function</td><td>Geometric Mean</td><td>Balanced trade-off between privacy and utility</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>Search Space Analysis</h3>
+    <div class="tw"><table>
+      <tr><th>Metric</th><th>Value</th><th>Interpretation</th></tr>
+      <tr><td>Total Search Space</td><td>10,800</td><td>Total possible anonymization schemes</td></tr>
+      <tr><td>Materialized Solutions</td><td>10,675</td><td>98.8% of schemes evaluated by ARX</td></tr>
+      <tr><td>Optimal Solution Found</td><td>Yes</td><td>ARX identified best privacy-utility trade-off</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>Transformation Results</h3>
+    <div class="tw"><table>
+      <tr><th>Metric</th><th>Value</th><th>Status</th></tr>
+      <tr><td>Anonymity Achieved</td><td>Yes</td><td>Dataset successfully anonymized</td></tr>
+      <tr><td>Information Loss (Min)</td><td>54.04%</td><td>Minimum information loss to achieve privacy</td></tr>
+      <tr><td>Information Loss (Max)</td><td>54.04%</td><td>No better solution exists (optimal)</td></tr>
+      <tr><td>Information Retained</td><td>45.96%</td><td>Utility preserved for analysis</td></tr>
+      <tr><td>Output Records</td><td>500</td><td>No records deleted (1:1 mapping)</td></tr>
+      <tr><td>Output Attributes</td><td>15</td><td>No columns deleted (1:1 mapping)</td></tr>
+      <tr><td>Data Integrity Checksum</td><td>37a2f3e3772644387af9489af2d7e692330e2800da97f3e493b75cb1618c13d0</td><td>SHA-256 for verification</td></tr>
+    </table></div>
+  </div>
+
+  <div class="hl">
+    <b>Consistency Check:</b> The anonymized dataset confirms Name and Location fully suppressed (*). Age generalized to ranges (18-25, 26-35, 36-50, 51-65, 65+). Income generalized to 4 brackets (&lt;50k, 50-100k, 100-200k, 200k+). Assets generalized to 2 brackets (&lt;1M, 1M+). Debts and Monthly Expenses fully generalized or suppressed. 30 outlier records fully suppressed (6% suppression rate - within acceptable threshold). All privacy models (k-Anonymity=2, k-Map=5, l-Diversity=2) satisfied. Risk thresholds met: Prosecutor ≤50%, Journalist ≤20%, Marketer ≤20%.
+  </div>
 </div>
 
 <!-- S5 -->
