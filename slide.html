@@ -758,7 +758,7 @@ Linh HOANG Thuy – Raghavendra Mutyala
       <tr><th>Attribute</th><th>Height</th><th>Min</th><th>Max</th><th>Example</th></tr>
       <tr><td>Income</td><td>4</td><td>0</td><td>3</td><td>8576.35 → [5000,8000[ → [0,10000[ → *</td></tr>
       <tr><td>Gender</td><td>3</td><td>0</td><td>2</td><td>Male → Person → *</td></tr>
-      <tr><td>Age</td><td>2</td><td>0</td><td>1</td><td>32 → [0,80[ → *</td></tr>
+      <tr><td>Age</td><td>2</td><td>0</td><td>1</td><td>32 → [17,35[ →[17,60[ *</td></tr>
       <tr><td>Assets</td><td>3</td><td>0</td><td>2</td><td>63086.9 → [0,80000[ → *</td></tr>
       <tr><td>Debts</td><td>—</td><td>—</td><td>—</td><td><span class="tt tt-s">Fully Suppressed (*)</span></td></tr>
       <tr><td>Monthly Expenses</td><td>—</td><td>—</td><td>—</td><td><span class="tt tt-s">Fully Suppressed (*)</span></td></tr>
@@ -1089,7 +1089,7 @@ Linh HOANG Thuy – Raghavendra Mutyala
         </ul>
       </div>
       <div class="sc2">
-        <div class="st">📊 l-Diversity (implicit)</div>
+        <div class="st">l-Diversity (implicit)</div>
         <ul>
           <li>Sensitive attrs (Financial Goal, Advice Type) maintain diversity within equivalence classes</li>
           <li>Prevents attribute disclosure attacks</li>
@@ -1097,7 +1097,7 @@ Linh HOANG Thuy – Raghavendra Mutyala
         </ul>
       </div>
       <div class="sc2">
-        <div class="st">🎯 Data Quality Model</div>
+        <div class="st"> Data Quality Model</div>
         <ul>
           <li>Sensitive attrs (Investment Pref, Advice Type, Goal) retained without generalization</li>
           <li>Insensitive behavioral attrs fully retained</li>
@@ -1115,79 +1115,371 @@ Linh HOANG Thuy – Raghavendra Mutyala
     </div>
   </div>
 </div>
-
 <!-- S6 -->
 <div class="pg" id="s6">
   <div class="pt">§6 — Privacy Solutions (PETs & Cryptography)</div>
   <div class="ps">Solutions for LINDDUN threats leveraging PETs, Cryptography, and OWASP Top 10</div>
   <div class="card">
-    <h3>🛡️ Solutions by LINDDUN Threat Category</h3>
+    <h3>Solutions by LINDDUN Threat Category</h3>
     <div class="tw"><table>
       <tr><th>Threat</th><th>Key PET/Technology Solutions</th><th>Regulatory References</th></tr>
-      <tr><td><b>🔗 Linkability</b></td><td><span class="tag tb">k-Anonymity</span><span class="tag tb">Differential Privacy</span><span class="tag tb">Pseudonymization</span><span class="tag tg2">ZKP</span><span class="tag tg2">Synthetic Data (GAN/VAE)</span></td><td>GDPR Art. 5, 25; NIST SP 800-188</td></tr>
-      <tr><td><b>🎯 Identifiability</b></td><td><span class="tag tb">Tokenization</span><span class="tag tb">SMPC</span><span class="tag tp">ARX Tool</span><span class="tag to">Geo-Masking</span><span class="tag tr">Title Stripping</span></td><td>GDPR Art. 25; OWASP A02</td></tr>
-      <tr><td><b>📝 Non-Repudiation</b></td><td><span class="tag tb">Anonymous Credentials</span><span class="tag tg2">Commitment Schemes</span><span class="tag tp">ZKP</span><span class="tag to">TTL Logs</span></td><td>GDPR Art. 17; W3C VC</td></tr>
-      <tr><td><b>👁️ Detectability</b></td><td><span class="tag tb">Traffic Padding</span><span class="tag tb">HE/ORAM</span><span class="tag tg2">Endpoint Generalization</span><span class="tag tp">DP Query Logs</span></td><td>OWASP API Top 10</td></tr>
-      <tr><td><b>📢 Disclosure</b></td><td><span class="tag tb">AES-256</span><span class="tag tb">Field-Level Encryption</span><span class="tag tg2">Federated Learning</span><span class="tag tp">DP-SGD</span><span class="tag to">TLS 1.3</span></td><td>GDPR Art. 32; PCI-DSS v4.0; OWASP A01,A02</td></tr>
-      <tr><td><b>😶 Unawareness</b></td><td><span class="tag tb">Privacy Nutrition Labels</span><span class="tag tg2">XAI Dashboard</span><span class="tag tp">Consent CMP</span><span class="tag to">Behavioral Profile Viewer</span></td><td>GDPR Art. 13,15,22; CCPA</td></tr>
-      <tr><td><b>⚖️ Non-Compliance</b></td><td><span class="tag tb">RoPA</span><span class="tag tb">SCCs</span><span class="tag tg2">TIA</span><span class="tag tp">Human-in-the-Loop</span><span class="tag to">Privacy Portal (Art.15–22)</span></td><td>GDPR Art. 5–22,30; COPPA; GLBA; PCI-DSS</td></tr>
+      <tr><td><b>Linkability</b></td><td><span class="tag tb">k-Anonymity / l-Diversity</span><span class="tag tb">Differential Privacy</span><span class="tag tb">Pseudonymization</span><span class="tag tg2">Zero-Knowledge Proofs</span><span class="tag tg2">Synthetic Data (GAN/VAE)</span></td><td>GDPR Art. 5, 25; NIST SP 800-188</td></tr>
+      <tr><td><b>Identifiability</b></td><td><span class="tag tb">Tokenization</span><span class="tag tb">Secure Multi-Party Computation</span><span class="tag tp">ARX Tool</span><span class="tag to">Geo-Masking</span><span class="tag tr">Data Sanitization</span></td><td>GDPR Art. 25; OWASP A02</td></tr>
+      <tr><td><b>Non-Repudiation</b></td><td><span class="tag tb">Anonymous Credentials</span><span class="tag tg2">Commitment Schemes</span><span class="tag tp">Zero-Knowledge Proofs</span><span class="tag to">Selective Audit Logging</span></td><td>GDPR Art. 17; W3C VC</td></tr>
+      <tr><td><b>Detectability</b></td><td><span class="tag tb">Traffic Padding</span><span class="tag tb">Homomorphic Encryption / ORAM</span><span class="tag tg2">Endpoint Generalization</span><span class="tag tp">Differential Privacy Query Logs</span></td><td>OWASP API Top 10</td></tr>
+      <tr><td><b>Disclosure</b></td><td><span class="tag tb">AES-256-GCM</span><span class="tag tb">Field-Level Encryption</span><span class="tag tg2">Federated Learning</span><span class="tag tp">DP-SGD</span><span class="tag to">TLS 1.3 with ESNI</span></td><td>GDPR Art. 32; PCI-DSS v4.0; OWASP A01,A02</td></tr>
+      <tr><td><b>Unawareness</b></td><td><span class="tag tb">Privacy Transparency Notices</span><span class="tag tg2">Explainable AI Dashboard</span><span class="tag tp">Consent Management Platform</span><span class="tag to">Privacy Dashboard</span></td><td>GDPR Art. 13,15,22; CCPA</td></tr>
+      <tr><td><b>Non-Compliance</b></td><td><span class="tag tb">Record of Processing Activities</span><span class="tag tb">Standard Contractual Clauses</span><span class="tag tg2">Transfer Impact Assessment</span><span class="tag tp">Human-in-the-Loop Review</span><span class="tag to">Data Subject Rights Portal</span></td><td>GDPR Art. 5–22,30; COPPA; GLBA; PCI-DSS</td></tr>
     </table></div>
   </div>
   <div class="card">
-    <h3>🔐 Key Technical Solutions — Deep Dive</h3>
+    <h3>Detailed Sub-Threat Solutions Matrix</h3>
+    <div class="tw"><table>
+      <tr><th>LINDDUN Threat</th><th>Sub-Threat</th><th>Specific Solution</th><th>Implementation Details</th><th>Regulatory Reference</th></tr>
+      
+      <!-- LINKABILITY (L) -->
+      <tr><td rowspan="4"><b>Linkability (L)</b></td>
+        <td>Name + Location + Age quasi-identifier cluster</td>
+        <td>k-Anonymity / l-Diversity</td>
+        <td>Generalize Age into ranges (18–25, 26–35, etc.); coarsen Location to country-level only; ensure k≥5 for any quasi-identifier combination</td>
+        <td>GDPR Art. 5 (Data Minimization); NIST SP 800-188</td>
+      </tr>
+      <tr>
+        <td>Income + Assets + Debts linkable financial profile</td>
+        <td>Differential Privacy Data Perturbation</td>
+        <td>Add calibrated Laplace noise (ε=0.5) to numerical fields before storage or export; round to nearest $500 bracket; apply micro-aggregation (k≥5)</td>
+        <td>GDPR Art. 32 (Security); Apple DP whitepaper</td>
+      </tr>
+      <tr>
+        <td>Behavioral fingerprint (Investment Preference + Goal)</td>
+        <td>Pseudonymization with Rotating Tokens</td>
+        <td>Replace Name with deterministic UUID at ingestion; use HMAC-SHA256(UUID + secret salt) for behavioral logs; decouple behavioral data from identity in storage</td>
+        <td>GDPR Art. 4(5) (Pseudonymization); GDPR Art. 25 (Privacy by Design)</td>
+      </tr>
+      <tr>
+        <td>Cross-session linkage via advice patterns</td>
+        <td>Session Unlinkability & Ephemeral Tokens</td>
+        <td>Use ephemeral session tokens (valid 30 minutes); avoid persistent user-level IDs in logs; rotate tokens on each request; store only anonymized event summaries</td>
+        <td>GDPR Art. 5(1)(e) (Storage Limitation)</td>
+      </tr>
+
+      <!-- IDENTIFIABILITY (I) -->
+      <tr><td rowspan="4"><b>Identifiability (I)</b></td>
+        <td>Full Name as direct identifier</td>
+        <td>Tokenization with HSM Vault</td>
+        <td>Replace Name field with UUID at ingestion; store mapping in HSM-protected vault (HashiCorp Vault / AWS KMS) with role-based access control; audit all vault access</td>
+        <td>GDPR Art. 25 (Privacy by Design); OWASP A02:2021</td>
+      </tr>
+      <tr>
+        <td>Rare locations (Bouvet Island, Cocos Islands) near-unique</td>
+        <td>Location Generalization & Suppression</td>
+        <td>Store only country or region; suppress sub-national location for populations &lt;10,000; map rare territories to "Other/Small Territory" category</td>
+        <td>GDPR Art. 5(1)(c) (Data Minimization)</td>
+      </tr>
+      <tr>
+        <td>Professional titles (MD, DDS) in Name field</td>
+        <td>Input Sanitization & Whitelist Validation</td>
+        <td>Strip/normalize honorifics at data entry layer; validate Name field against whitelist (reject Dr., Mrs., MD, DDS); enforce via API schema validation</td>
+        <td>OWASP A03:2021 (Injection)</td>
+      </tr>
+      <tr>
+        <td>Precise financial values unique fingerprint</td>
+        <td>Numeric Rounding & Micro-Aggregation</td>
+        <td>Round Income/Assets/Debts to nearest $100 bracket; apply micro-aggregation (k≥5) for analytics; expose only aggregate statistics, not individual records</td>
+        <td>GDPR Art. 32 (Security)</td>
+      </tr>
+
+      <!-- NON-REPUDIATION (N) -->
+      <tr><td rowspan="3"><b>Non-Repudiation (N)</b></td>
+        <td>Permanent compliance logs usable in legal disputes</td>
+        <td>Selective Audit Logging with TTL</td>
+        <td>Log only anonymized event types (e.g., "ADVICE_GENERATED"), not personal data content; enforce TTL 90 days; use HMAC for log integrity; maintain separate audit database</td>
+        <td>GDPR Art. 17 (Right to Erasure); GDPR Art. 5(1)(f) (Integrity)</td>
+      </tr>
+      <tr>
+        <td>Trust Level declaration used to justify automated decisions</td>
+        <td>Explainable AI with Decision Disclosure</td>
+        <td>For each advice recommendation, provide user-facing explanation: "Based on: Debt-to-Income ratio (45%), Monthly Expenses trend (30%), Trust Level (25%)"; use SHAP/LIME for feature attribution</td>
+        <td>GDPR Art. 22 (Automated Decision-Making); GDPR Art. 13(2)(f)</td>
+      </tr>
+      <tr>
+        <td>Financial disclosure subpoenable in legal proceedings</td>
+        <td>Zero-Knowledge Proofs (ZKP)</td>
+        <td>Allow eligibility verification (e.g., "income &gt; $50k threshold") without revealing exact value; use zk-SNARKs for privacy-preserving compliance checks</td>
+        <td>GDPR Art. 32 (Security)</td>
+      </tr>
+
+      <!-- DETECTABILITY (D) -->
+      <tr><td rowspan="3"><b>Detectability (D)</b></td>
+        <td>API traffic patterns reveal user type (Crypto + High Trust)</td>
+        <td>Traffic Obfuscation & Padding</td>
+        <td>Normalize API request sizes; inject dummy requests during low-traffic periods; vary response time by ±100ms; use constant-time algorithms</td>
+        <td>OWASP A09:2021 (Logging Failures); OWASP API Top 10 – API4</td>
+      </tr>
+      <tr>
+        <td>Debt distress signal detectable via endpoint frequency</td>
+        <td>Encrypted Metadata with TLS 1.3 ESNI/ECH</td>
+        <td>Use TLS 1.3 with Encrypted SNI (ESNI) / Encrypted Client Hello (ECH); avoid revealing query categories in URL paths (e.g., never use /api/debt-advice); encrypt all metadata</td>
+        <td>GDPR Art. 32 (Security)</td>
+      </tr>
+      <tr>
+        <td>Profile existence confirmation via enumeration</td>
+        <td>Anti-Enumeration Controls</td>
+        <td>Return identical HTTP 200 responses for existing/non-existing profiles; vary response time by ±100ms; implement rate limiting (100 req/min per IP); require CAPTCHA after 50 failed lookups</td>
+        <td>OWASP A01:2021 (Broken Access Control); OWASP API3</td>
+      </tr>
+
+      <!-- DISCLOSURE (D) -->
+      <tr><td rowspan="4"><b>Disclosure (D)</b></td>
+        <td>Full financial profile in single CSV record</td>
+        <td>Field-Level Encryption with AES-256-GCM</td>
+        <td>Encrypt sensitive columns (Income, Assets, Debts) with AES-256-GCM; use separate encryption keys per user; enable per-user access control; rotate keys quarterly</td>
+        <td>GDPR Art. 32 (Security); PCI-DSS v4.0 Req. 3</td>
+      </tr>
+      <tr>
+        <td>Location + high Assets physical security risk</td>
+        <td>Data Minimization at Collection</td>
+        <td>Do not collect precise sub-city location; enforce via schema validation; store only country/region; allow users to opt-in to precise location only for tax/regulatory use cases</td>
+        <td>GDPR Art. 5(1)(c) (Data Minimization)</td>
+      </tr>
+      <tr>
+        <td>Dataset shared with AI models training pipeline leakage</td>
+        <td>Federated Learning with Secure Enclaves</td>
+        <td>Train models locally on-device or in Intel SGX / ARM TrustZone enclaves; transmit only model gradients (not raw data); use DP-SGD to add noise to gradients; never transmit raw financial records</td>
+        <td>GDPR Art. 32 (Security); GDPR Art. 5(1)(f) (Integrity)</td>
+      </tr>
+      <tr>
+        <td>Third-party Investment Preference sharing</td>
+        <td>Consent Management Platform (CMP)</td>
+        <td>Granular opt-in per data use purpose; separate toggles for Analytics, Product Offers, Research; revocable at any time; store consent timestamps for non-repudiation; implement age-aware consent for minors</td>
+        <td>GDPR Art. 7 (Conditions for Consent); GDPR Art. 13–14 (Transparency)</td>
+      </tr>
+
+      <!-- UNAWARENESS (U) -->
+      <tr><td rowspan="4"><b>Unawareness (U)</b></td>
+        <td>Users unaware of quasi-identifier risk</td>
+        <td>Transparency Notices at Point of Collection</td>
+        <td>Inline tooltips explaining why each field is collected and its privacy risk; link to full Privacy Policy; use plain language; no consent walls</td>
+        <td>GDPR Art. 13–14 (Transparency); NIST Privacy Framework – Communicate-P</td>
+      </tr>
+      <tr>
+        <td>Financial data retained after account closure</td>
+        <td>Automated Data Lifecycle Management</td>
+        <td>Define retention periods per field type (Active data: 5 years; Feedback: 2 years; Logs: 90 days); trigger deletion workflows on account closure; confirm completion within 30 days</td>
+        <td>GDPR Art. 17 (Right to Erasure); GDPR Art. 5(1)(e) (Storage Limitation)</td>
+      </tr>
+      <tr>
+        <td>Behavioral profiling affects credit/insurance without awareness</td>
+        <td>Privacy Dashboard with Data Transparency</td>
+        <td>User-accessible view of all stored data, inferred attributes, downstream uses, and retention periods; downloadable data export; one-click consent management</td>
+        <td>GDPR Art. 15 (Access); GDPR Art. 13(2)(f) (Explanation)</td>
+      </tr>
+      <tr>
+        <td>Location triggers automated risk flags silently</td>
+        <td>Algorithmic Transparency & Decision Disclosure</td>
+        <td>Disclose when location-based rules affect advice quality or eligibility; provide user-facing explanation of decision logic; offer human review option</td>
+        <td>GDPR Art. 22 (Automated Decision-Making)</td>
+      </tr>
+
+      <!-- NON-COMPLIANCE (N) -->
+      <tr><td rowspan="7"><b>Non-Compliance (N)</b></td>
+        <td>All fields collected simultaneously data minimization violation</td>
+        <td>Privacy by Design Schema Review</td>
+        <td>API schema validation enforces collection of only required fields per use case; tag each field with approved use cases; quarterly audit of unused fields; conduct DPIA before adding new fields</td>
+        <td>GDPR Art. 5(1)(c) (Data Minimization); GDPR Art. 35 (DPIA)</td>
+      </tr>
+      <tr>
+        <td>Gender "Non-binary" potential special category</td>
+        <td>Explicit Consent Flow for Sensitive Data</td>
+        <td>Separate consent checkbox for sensitive demographic fields (Gender, Age); allow "Prefer not to say" option; do not make optional fields mandatory for service access</td>
+        <td>GDPR Art. 9 (Special Categories); GDPR Art. 7 (Consent)</td>
+      </tr>
+      <tr>
+        <td>Users aged 18–19 minor protection gap</td>
+        <td>Age Verification Gate with Parental Consent</td>
+        <td>Flag users ≤18 for enhanced consent workflow; implement parental consent mechanism; collect parent email; require parental approval before data processing; maintain audit log</td>
+        <td>GDPR Art. 8 (Children's Consent)</td>
+      </tr>
+      <tr>
+        <td>Plaintext CSV storage GDPR Art. 32 violation</td>
+        <td>Encryption at Rest & in Transit</td>
+        <td>AES-256-GCM for storage; TLS 1.3 for transit; key management via AWS KMS / HashiCorp Vault; automatic key rotation (quarterly); encrypt all backups; test decryption quarterly</td>
+        <td>GDPR Art. 32 (Security); PCI-DSS v4.0 Req. 3 & 4</td>
+      </tr>
+      <tr>
+        <td>No legal basis documented</td>
+        <td>Record of Processing Activities (RoPA)</td>
+        <td>Document legal basis per processing activity (consent / contract / legal obligation); maintain detailed RoPA for each processing (User Registration, Financial Assessment, Advice Generation, etc.); review quarterly</td>
+        <td>GDPR Art. 30 (Records of Processing Activities)</td>
+      </tr>
+      <tr>
+        <td>Automated advice without human review</td>
+        <td>Human-in-the-Loop (HITL) Review</td>
+        <td>For high-impact decisions (debt restructuring, high-risk investments), require advisor confirmation; maintain audit log of human reviews; provide users with right to request human review (Art. 22)</td>
+        <td>GDPR Art. 22 (Automated Decision-Making)</td>
+      </tr>
+      <tr>
+        <td>No data subject rights mechanism</td>
+        <td>Data Subject Rights Portal (Art. 15–22)</td>
+        <td>Implement self-service endpoints: Access (Art. 15 – download data), Erasure (Art. 17 – delete account), Rectification (Art. 16 – edit data), Portability (Art. 20 – export), Object (Art. 21 – opt-out), Automated Decision Review (Art. 22); respond within 30 days; no fees</td>
+        <td>GDPR Art. 15–22 (Data Subject Rights)</td>
+      </tr>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>Key Technical Solutions — Deep Dive</h3>
     <div class="sg2">
       <div class="sc2">
-        <div class="st">🔑 Pseudonymization at Ingestion</div>
+        <div class="st">Pseudonymization at Ingestion</div>
         <ul>
-          <li>Replace Name with UUID at data entry point</li>
-          <li>Name↔UUID mapping in access-controlled identity vault</li>
-          <li>HMAC-SHA256 with secret salt for internal references</li>
-          <li>Ref: GDPR Art. 25; OWASP A02:2021</li>
+          <li><b>Implementation:</b> Replace Full Name with deterministic UUID (e.g., SHA-256(Name + salt)) at data entry point</li>
+          <li><b>Identity Vault:</b> Maintain Name↔UUID mapping in HSM-protected, access-controlled database with role-based permissions</li>
+          <li><b>Internal References:</b> Use HMAC-SHA256(UUID + secret salt) for unlinkable behavioral logs</li>
+          <li><b>Audit Trail:</b> Log all identity vault access with timestamp, user ID, and purpose; TTL 90 days</li>
+          <li><b>Regulatory:</b> GDPR Art. 25 (Privacy by Design); OWASP A02:2021 (Cryptographic Failures)</li>
         </ul>
       </div>
       <div class="sc2">
-        <div class="st">📊 Differential Privacy for Income</div>
+        <div class="st">Differential Privacy for Income & Financial Fields</div>
         <ul>
-          <li>Add Laplace noise (ε=0.5) before analytics storage</li>
-          <li>Round to nearest $500 bracket + noise injection</li>
-          <li>Expose Income only through DP-protected aggregate queries</li>
-          <li>Ref: NIST SP 800-188; Apple DP whitepaper</li>
+          <li><b>Noise Calibration:</b> Add Laplace noise with privacy budget ε=0.5 (high privacy) before analytics storage or export</li>
+          <li><b>Numeric Rounding:</b> Round Income/Assets/Debts to nearest $500 bracket; apply micro-aggregation (k=5 minimum) for analytics queries</li>
+          <li><b>Query Protection:</b> Expose financial data only through DP-protected aggregate endpoints; block row-level queries</li>
+          <li><b>Federated Analytics:</b> Train statistical models locally on-device; transmit only aggregated gradients (DP-SGD)</li>
+          <li><b>Regulatory:</b> NIST SP 800-188; Apple Differential Privacy whitepaper; GDPR Art. 32 (Security)</li>
         </ul>
       </div>
       <div class="sc2">
-        <div class="st">🌍 Location Generalization</div>
+        <div class="st">Location Generalization & Geo-Masking</div>
         <ul>
-          <li>Store only country/region (never city-level)</li>
-          <li>Rare territories (pop. &lt;50k) → "Other/Small Territory"</li>
-          <li>Geo-masking: random offset within administrative region</li>
-          <li>Consent-gated precision for tax jurisdiction use cases</li>
+          <li><b>Coarsening Strategy:</b> Store only country/region code (ISO 3166-1 alpha-2); never collect city-level precision</li>
+          <li><b>Rare Territory Suppression:</b> Territories with population &lt;10,000 (Bouvet Island, Cocos Islands) → "Other/Small Territory" category</li>
+          <li><b>Geo-Masking:</b> For analytics, apply random offset within administrative region (±50km) to prevent re-identification</li>
+          <li><b>Consent-Gated Precision:</b> Allow users to opt-in to precise location only for tax jurisdiction or regulatory compliance use cases</li>
+          <li><b>Regulatory:</b> GDPR Art. 5 (Data Minimization); NIST Privacy Framework – Collect-C1</li>
         </ul>
       </div>
       <div class="sc2">
-        <div class="st">🔒 Tokenization for Financial Fields</div>
+        <div class="st">Tokenization for Financial Fields</div>
         <ul>
-          <li>Replace Income/Assets/Debts with vault tokens (HashiCorp/AWS)</li>
-          <li>Federated architecture: never join all financial fields</li>
-          <li>SMPC for cross-institutional analytics</li>
-          <li>Ref: PCI-DSS v4.0 Req.3; OWASP A04:2021</li>
+          <li><b>Vault Architecture:</b> Replace Income/Assets/Debts with cryptographic tokens (e.g., HashiCorp Vault, AWS Payment Cryptography)</li>
+          <li><b>Token Format:</b> Format-preserving encryption (FPE) to maintain numeric properties for sorting/filtering without decryption</li>
+          <li><b>Federated Joins:</b> Never join all financial fields in single query; use Secure Multi-Party Computation (SMPC) for cross-institutional analytics</li>
+          <li><b>Key Rotation:</b> Rotate tokenization keys quarterly; maintain audit log of key versions</li>
+          <li><b>Regulatory:</b> PCI-DSS v4.0 Requirement 3 (Protect Stored Data); OWASP A04:2021 (Insecure Deserialization)</li>
         </ul>
       </div>
       <div class="sc2">
-        <div class="st">⏰ Temporal Data Expiry (TTL)</div>
+        <div class="st">Temporal Data Expiry & Log Management</div>
         <ul>
-          <li>TTL 90 days on behavioral logs (Action, Feedback)</li>
-          <li>Only aggregated summaries retained long-term</li>
-          <li>Blind signatures for unlinkable audit logs</li>
-          <li>Ref: GDPR Art. 17 (Right to Erasure)</li>
+          <li><b>TTL Policy:</b> Behavioral logs (Action, Feedback, App Usability Feedback) expire after 90 days; automatic deletion via scheduled job</li>
+          <li><b>Aggregation Retention:</b> Only aggregated summaries (e.g., "user completed 5 actions") retained long-term (5 years for regulatory audit)</li>
+          <li><b>Unlinkable Audit Logs:</b> Use blind signatures (Chaum scheme) for event logging so individual events cannot be linked to user identity</li>
+          <li><b>Selective Logging:</b> Log only anonymized event types (e.g., "ADVICE_GENERATED") and outcomes; never log personal data content</li>
+          <li><b>Regulatory:</b> GDPR Art. 17 (Right to Erasure); GDPR Art. 5(1)(e) (Storage Limitation)</li>
         </ul>
       </div>
       <div class="sc2">
-        <div class="st">🤖 Synthetic Data Generation</div>
+        <div class="st">Synthetic Data Generation for Analytics</div>
         <ul>
-          <li>Replace Monthly Expenses with GAN/VAE synthetic equivalents</li>
-          <li>Preserve statistical distributions without individual records</li>
-          <li>Tools: Gretel.ai, SDV library</li>
-          <li>Ref: ENISA PETs Guidelines 2022</li>
+          <li><b>Generative Models:</b> Replace Monthly Expenses with GAN/VAE synthetic equivalents; preserve statistical distributions without individual records</li>
+          <li><b>Validation:</b> Ensure synthetic data passes differential privacy tests (e.g., membership inference attack resistance)</li>
+          <li><b>Tools:</b> Gretel.ai (cloud), SDV library (open-source), CTGAN for tabular data</li>
+          <li><b>Use Case:</b> Share synthetic dataset with analytics partners; original data never leaves organization</li>
+          <li><b>Regulatory:</b> ENISA PETs Guidelines 2022; GDPR Art. 25 (Privacy by Design)</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">Anti-Enumeration & Traffic Obfuscation</div>
+        <ul>
+          <li><b>Identical Responses:</b> Return same HTTP response (200 OK) for existing and non-existing user profiles; vary response time by ±100ms</li>
+          <li><b>Traffic Padding:</b> Normalize API request sizes; inject dummy requests during low-traffic periods to mask user behavior patterns</li>
+          <li><b>Encrypted Metadata:</b> Use TLS 1.3 with ESNI/ECH to hide SNI; avoid revealing query categories in URL paths (e.g., /api/debt-advice)</li>
+          <li><b>Rate Limiting:</b> Implement per-IP rate limits (100 req/min) + CAPTCHA after 50 failed profile lookups</li>
+          <li><b>Regulatory:</b> OWASP API Security Top 10 – API4 (Unrestricted Resource Consumption), API3 (Broken Object Property Level Authorization)</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">Federated Learning & Secure Enclaves</div>
+        <ul>
+          <li><b>On-Device Training:</b> Train recommendation models locally on user's device; transmit only model gradients (not raw data) to central server</li>
+          <li><b>Secure Enclave:</b> Process sensitive financial data in Intel SGX / ARM TrustZone enclaves; attestation ensures code integrity</li>
+          <li><b>Gradient Aggregation:</b> Use DP-SGD to add noise to gradients before aggregation; prevents model inversion attacks</li>
+          <li><b>No Raw Data Sharing:</b> Never transmit Income, Assets, Debts to ML pipeline; only derived risk scores</li>
+          <li><b>Regulatory:</b> GDPR Art. 32 (Security); GDPR Art. 5(1)(f) (Integrity and Confidentiality)</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">Explainable AI & Algorithmic Transparency</div>
+        <ul>
+          <li><b>Decision Disclosure:</b> For each automated advice recommendation, provide user-facing explanation: "Your debt-restructuring advice is based on: Debt-to-Income ratio (45%), Monthly Expenses trend (30%), Trust Level (25%)"</li>
+          <li><b>Feature Attribution:</b> Use SHAP values or LIME to show which data fields most influenced the decision</li>
+          <li><b>Audit Trail:</b> Maintain immutable log of all model versions, training data snapshots, and decision outcomes</li>
+          <li><b>Human Review Trigger:</b> Flag high-impact decisions (debt restructuring, high-risk investments) for advisor confirmation</li>
+          <li><b>Regulatory:</b> GDPR Art. 22 (Automated Decision-Making); GDPR Art. 13(2)(f) (Explanation of Logic)</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">Consent Management Platform (CMP)</div>
+        <ul>
+          <li><b>Granular Consent:</b> Separate toggles per data category (Gender, Investment Preference) and per processing purpose (Analytics, Product Offers, Research)</li>
+          <li><b>Layered Notices:</b> Short notice at collection ("Why do we ask?") + full Privacy Policy linked; avoid consent walls</li>
+          <li><b>Revocation:</b> One-click consent withdrawal in Privacy Dashboard; immediate data processing suspension</li>
+          <li><b>Consent Versioning:</b> Store timestamp, user ID, consent version, and IP address for non-repudiation</li>
+          <li><b>Age-Aware:</b> Users aged 18–19 flagged for enhanced consent; parental consent workflow for minors (Art. 8 GDPR)</li>
+          <li><b>Regulatory:</b> GDPR Art. 7 (Conditions for Consent); GDPR Art. 13–14 (Transparency)</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">Data Subject Rights Portal (Art. 15–22)</div>
+        <ul>
+          <li><b>Access (Art. 15):</b> Download all personal data in structured, machine-readable format (CSV/JSON) within 30 days</li>
+          <li><b>Rectification (Art. 16):</b> Edit incorrect fields (e.g., Age, Location); changes logged with timestamp</li>
+          <li><b>Erasure (Art. 17):</b> Delete account and all associated data; trigger automated deletion workflow; confirm completion within 30 days</li>
+          <li><b>Portability (Art. 20):</b> Export data in interoperable format; support transfer to competing services</li>
+          <li><b>Object (Art. 21):</b> Opt-out of legitimate interest processing (e.g., compliance tracking); service continues with reduced personalization</li>
+          <li><b>Automated Decision Review (Art. 22):</b> Request human review of any algorithmic decision; advisor will manually verify recommendation</li>
+          <li><b>Implementation:</b> Self-service portal + email support; no fees; audit all requests</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">Privacy by Design Schema Review</div>
+        <ul>
+          <li><b>Collection Gate:</b> API schema validation enforces collection of only required fields per use case (e.g., onboarding requires Name, Age, Country; Investment Preference optional)</li>
+          <li><b>Purpose Limitation:</b> Each field tagged with approved use cases; queries outside approved purposes rejected at database layer</li>
+          <li><b>Data Minimization Audit:</b> Quarterly review of all collected fields; remove unused fields (e.g., if App Usability Feedback unused for 6 months, delete)</li>
+          <li><b>Privacy Impact Assessment:</b> Before adding new fields, conduct DPIA; document risks and mitigations</li>
+          <li><b>Regulatory:</b> GDPR Art. 5(1)(c) (Data Minimization); GDPR Art. 35 (Data Protection Impact Assessment)</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">Encryption at Rest & in Transit</div>
+        <ul>
+          <li><b>At Rest:</b> AES-256-GCM for all personal data in database; key management via AWS KMS / HashiCorp Vault with automatic key rotation (quarterly)</li>
+          <li><b>In Transit:</b> TLS 1.3 mandatory for all API endpoints; disable TLS 1.2 and below; enforce HSTS header (max-age=31536000)</li>
+          <li><b>Field-Level Encryption:</b> Sensitive columns (Income, Assets, Debts) encrypted with user-specific keys; enable per-user access control</li>
+          <li><b>Backup Encryption:</b> All database backups encrypted with separate master key; test decryption quarterly</li>
+          <li><b>Regulatory:</b> GDPR Art. 32 (Security); PCI-DSS v4.0 Requirements 3 & 4</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">Standard Contractual Clauses (SCCs) for Cross-Border Transfers</div>
+        <ul>
+          <li><b>Transfer Mechanism:</b> Use EU Standard Contractual Clauses (Module Two: Controller-to-Processor) for all data transfers to non-EU processors</li>
+          <li><b>Supplementary Measures:</b> Document encryption, pseudonymization, and access controls as supplementary safeguards (per Schrems II ruling)</li>
+          <li><b>Transfer Impact Assessment:</b> Assess third-country legal frameworks (e.g., US surveillance laws); if inadequate, implement technical mitigations (e.g., encrypt data before transfer)</li>
+          <li><b>Processor Audit:</b> Annual audit of processor's security controls; require SOC 2 Type II certification</li>
+          <li><b>Regulatory:</b> GDPR Chapter V (Transfers); GDPR Art. 46 (Appropriate Safeguards); EDPB Guidelines 2/2018</li>
+        </ul>
+      </div>
+      <div class="sc2">
+        <div class="st">Record of Processing Activities (RoPA)</div>
+        <ul>
+          <li><b>Documentation:</b> Maintain detailed RoPA for each processing activity (User Registration, Financial Assessment, Advice Generation, etc.)</li>
+          <li><b>Fields:</b> Name of processing, purpose, legal basis, data categories, recipients, retention period, security measures, DPA references</li>
+          <li><b>Updates:</b> Review and update RoPA quarterly; maintain version history</li>
+          <li><b>Accessibility:</b> Provide RoPA to supervisory authorities upon request (GDPR Art. 30)</li>
+          <li><b>Regulatory:</b> GDPR Art. 30 (Records of Processing Activities)</li>
         </ul>
       </div>
     </div>
