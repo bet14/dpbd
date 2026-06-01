@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data Privacy by Design – Digital Financial Advisor</title>
+<title>Data Privacy by Design – Digital Financial Advisor App</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
       <style>
@@ -148,7 +148,7 @@
         }
         .rationale-text {
             line-height: 1.6;
-            color: #666;
+            color: #000b0f;
         }
         .example {
             display: block;
@@ -270,34 +270,36 @@ Linh HOANG Thuy – Raghavendra Mutyala
   </nav>
 </nav>
 
-<main id="main">
 
-<!-- HOME -->
+
+<main id="main">
 <div class="pg active" id="home">
   <div class="hero">
-    <h1>Digital Financial Advisor </h1>
-    <p>Data Privacy by Design (PbD) analysis: dataset profiling, LINDDUN threat modeling, ARX anonymization, PETs solutions, and GDPR compliance.</p>
-    <div class="meta">
-      
-      <span> Linh HOANG Thuy</span>
-<span> Siva karthik reddy Padigi reddy  </span>
-<span>Arun kumar reddy Pulicanti</span>
-      <span>Raghavendra Mutyala
-</span>
-      <span> DSA S1 2026</span>
-     
-    </div>
+    <h1>Digital Financial Advisor App</h1>
+    
+    <h2>A conceptual financial advisory platform providing personalized guidance on:</h2>
+    
+    <ul style="color: white; margin-left: 20px; font-size: 1rem; line-height: 1.8;">
+      <li>Tax planning</li>
+      <li>Investment strategies</li>
+      <li>Retirement planning</li>
+      <li>Debt management</li>
+      <li>Savings optimization</li>
+    </ul>
+    
+    <h2 style="margin-top: 25px; color: white; font-size: 1.1rem;">Analyzes user profiles to deliver personalized recommendations</h2>
+    <h2 style="margin-top: 25px; color: white; font-size: 1.1rem;">Robust data protection is essential given the sensitive information collected:</h2>
+    
+    <ul style="color: white; margin-left: 20px; font-size: 0.95rem; line-height: 1.7;">
+      <li>Financial profiles (income, assets, debts, expenses)</li>
+      <li>Investment preferences and risk tolerance</li>
+      <li>Behavioral patterns and feedback</li>
+      <li>Trust and compliance metrics</li>
+    </ul>
   </div>
-  <div class="sg">
-    <div class="sc"><div class="v">500</div><div class="l">Total Records</div></div>
-    <div class="sc"><div class="v">15</div><div class="l">Attributes</div></div>
-    <div class="sc"><div class="v">4</div><div class="l">Direct/Quasi-IDs</div></div>
-    <div class="sc"><div class="v">7</div><div class="l">LINDDUN Threats</div></div>
-    <div class="sc"><div class="v">k=5</div><div class="l">k-Anonymity</div></div>
-    <div class="sc"><div class="v">30</div><div class="l">Suppressed Records</div></div>
-  </div>
+  
   <div class="card">
-    <h3> Report Structure</h3>
+    <h3>📊 Report Structure</h3>
     <div class="tw"><table>
       <tr><th>Section</th><th>Topic</th><th>Key Deliverable</th></tr>
       <tr><td>§1</td><td>Dataset Explanation</td><td>Column-by-column analysis, identifier classification</td></tr>
@@ -316,11 +318,11 @@ Linh HOANG Thuy – Raghavendra Mutyala
   <div class="pt">§1 — Dataset Explanation</div>
   <div class="ps">digital_financial_advisor_data.csv · 500 records · 15 attributes</div>
   <div class="sg">
+    <div class="sc"><div class="v">500</div><div class="l">records</div></div>
     <div class="sc"><div class="v">1</div><div class="l">Direct Identifier</div></div>
-    <div class="sc"><div class="v">2</div><div class="l">Identifying (ARX)</div></div>
-    <div class="sc"><div class="v">6</div><div class="l">Quasi-Identifiers</div></div>
-    <div class="sc"><div class="v">3</div><div class="l">Sensitive Attrs</div></div>
-    <div class="sc"><div class="v">4</div><div class="l">Insensitive Attrs</div></div>
+    <div class="sc"><div class="v">3</div><div class="l">Indirect Identifier</div></div>
+    <div class="sc"><div class="v">4</div><div class="l">Sensitive Attrs</div></div>
+    <div class="sc"><div class="v">7</div><div class="l">Not an identifier</div></div>
   </div>
   <div class="card">
     <h3>📋 Column-by-Column Analysis</h3>
@@ -485,24 +487,118 @@ Linh HOANG Thuy – Raghavendra Mutyala
 <div class="pg" id="s2">
   <div class="pt">§2 — System Reference Diagram (DFD)</div>
   <div class="ps">High-level Data Flow Diagram covering all major system components</div>
+  
   <div class="card">
-    <h3>🗺️ Data Flow Diagram — Digital Financial Advisor Platform</h3>
+    <h3> Data Flow Diagram — Digital Financial Advisor Platform</h3>
     <div class="tw">
   <img src="diagram.png" alt="Data Dictionary Table" style="max-width: 100%; height: auto;">
 </div>
   </div>
-  <div class="card">
-    <h3> Key Data Flows & Privacy Boundaries</h3>
-    <div class="tw"><table>
-      <tr><th>Flow</th><th>Data Involved</th><th>Privacy Concern</th><th>Control</th></tr>
-      <tr><td>User → Onboarding</td><td>Name, Age, Location, Gender, Income, Assets</td><td>Direct + Quasi-ID collection</td><td>Consent gate, data minimization</td></tr>
-      <tr><td>Profile DB → Advisory Engine</td><td>Full financial profile</td><td>Sensitive financial exposure</td><td>ABAC, encryption at rest</td></tr>
-      <tr><td>Engine → Behavioral Log</td><td>Advice type, actions, feedback</td><td>Longitudinal behavioral profiling</td><td>TTL 90 days, pseudonymization</td></tr>
-      <tr><td>Behavioral Log → Anonymization</td><td>All quasi-identifiers</td><td>Re-identification risk</td><td>ARX k-anonymity + suppression</td></tr>
-      <tr><td>Anonymized → Analytics</td><td>Generalized attributes</td><td>Residual linkability</td><td>Differential Privacy queries only</td></tr>
-      <tr><td>System → Regulatory</td><td>RoPA, consent records</td><td>Compliance accountability</td><td>Audit logs, SCCs cross-border</td></tr>
-    </table></div>
+<div class="card">
+  
+  
+  <h3>Three-Zone Architecture</h3>
+  <table>
+    <tr>
+      <th>Zone</th>
+      <th>Components</th>
+      <th>Key Functions</th>
+    </tr>
+    <tr>
+      <td style="font-weight: bold;">Client Zone</td>
+      <td>Mobile/Web app, User interface</td>
+      <td>Authentication, profile management, feedback collection</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold;">Application Zone</td>
+      <td>Digital Financial Advisor Platform</td>
+      <td>Data validation, risk analysis, advice generation, reporting & analytics</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold;">Data & Integration Zone</td>
+      <td>Database, APIs, external sources</td>
+      <td>Data storage, third-party integrations, compliance logging</td>
+    </tr>
+  </table>
   </div>
+  
+  
+
+
+  <div class="card">
+  <h3>Data Management & Integration (Key Data Flows  & Privacy Boundaries)</h3>
+  <div class="tw">
+    <table>
+      <tr>
+        <th>Flow</th>
+        <th>Data Involved</th>
+        <th>Privacy Concern</th>
+        <th>Control</th>
+      </tr>
+      <tr>
+        <td>Client Profile Input</td>
+        <td>Profile data, Financial goals, Preferences, Feedback, Trust Feedback</td>
+        <td>Direct Personally Identifiable Information + Quasi-identifier collection</td>
+        <td>Explicit consent, data minimization principle</td>
+      </tr>
+      <tr>
+        <td>Data Intake & Validation</td>
+        <td>Validated profile, Financial goals, Risk profile</td>
+        <td>Data integrity & authenticity verification</td>
+        <td>Validation rules, data quality checks</td>
+      </tr>
+      <tr>
+        <td>Risk & Profile Analysis</td>
+        <td>Risk scores, Profile analysis, Behavioral patterns</td>
+        <td>Sensitive financial profiling & inference</td>
+        <td>Encryption at rest, ABAC access control</td>
+      </tr>
+      <tr>
+        <td>Data Processing & Storage</td>
+        <td>Processed recommendations, Analytics data</td>
+        <td>Longitudinal behavioral tracking</td>
+        <td>Data retention TTL (90 days), pseudonymization</td>
+      </tr>
+      <tr>
+        <td>Advice Generation</td>
+        <td>Analytics, Statistics, Insights, Recommendations</td>
+        <td>Behavioral inference & automated decision-making</td>
+        <td>Audit logs, explainability records</td>
+      </tr>
+      <tr>
+        <td>Recommendation to User</td>
+        <td>Personalized advice recommendations</td>
+        <td>Targeted profiling & behavioral influence</td>
+        <td>User consent, opt-out mechanisms</td>
+      </tr>
+      <tr>
+        <td>External Data Integration</td>
+        <td>Market assumptions, Financial rules, Tax guidance</td>
+        <td>Third-party data linkage & re-identification risk</td>
+        <td>API contracts, data minimization, SCCs</td>
+      </tr>
+      <tr>
+        <td>Third-party Integration</td>
+        <td>Data sharing via API (Cloud/AI services)</td>
+        <td>Cross-border data transfer & vendor exposure</td>
+        <td>Data processing agreements, API encryption</td>
+      </tr>
+      <tr>
+        <td>Regulatory Compliance</td>
+        <td>Audit logs, Compliance records, Data sharing logs</td>
+        <td>Compliance accountability & audit trail integrity</td>
+        <td>Encrypted audit trails, Standard Contractual Clauses</td>
+      </tr>
+      <tr>
+        <td>Feedback Loop</td>
+        <td>Adoption actions, Usability feedback</td>
+        <td>Continuous behavioral monitoring</td>
+        <td>Differential privacy, data minimization</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
 </div>
 
 <!-- S3 -->
@@ -738,6 +834,7 @@ Linh HOANG Thuy – Raghavendra Mutyala
   <div class="sg">
     <div class="sc"><div class="v">500</div><div class="l">Input Records</div></div>
     <div class="sc"><div class="v">15</div><div class="l">Attributes</div></div>
+    <div class="sc"><div class="v">4</div><div class="l">Categories</div></div>
     <div class="sc"><div class="v">470</div><div class="l">Generalized</div></div>
     <div class="sc"><div class="v">30</div><div class="l">Suppressed (6%)</div></div>
     <div class="sc"><div class="v">k=5</div><div class="l">k-Anonymity</div></div>
