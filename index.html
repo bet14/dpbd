@@ -1217,27 +1217,29 @@ Linh HOANG Thuy – Raghavendra Mutyala
       <tr><td><b>Non-Compliance</b></td><td><span class="tag tb">Record of Processing Activities</span><span class="tag tb">Standard Contractual Clauses</span><span class="tag tg2">Transfer Impact Assessment</span><span class="tag tp">Human-in-the-Loop Review</span><span class="tag to">Data Subject Rights Portal</span></td><td>GDPR Art. 5–22,30; COPPA; GLBA; PCI-DSS</td></tr>
     </table></div>
   </div>
+
   <div class="card">
     <h3>Detailed Sub-Threat Solutions Matrix</h3>
+
     <div class="tw"><table>
       <tr><th>LINDDUN Threat</th><th>Sub-Threat</th><th>Specific Solution</th><th>Implementation Details</th><th>Regulatory Reference</th></tr>
       
       <!-- LINKABILITY (L) -->
       <tr><td rowspan="4"><b>Linkability (L)</b></td>
         <td>Name + Location + Age quasi-identifier cluster</td>
-        <td>k-Anonymity / l-Diversity</td>
-        <td>Generalize Age into ranges (18–25, 26–35, etc.); coarsen Location to country-level only; ensure k≥5 for any quasi-identifier combination</td>
+        <td>K-map & Generalization <td>
+        <td>/Generalize Age into ranges (18–25, 26–35, etc.); coarsen Location to country-level only; ensure k≥5 for any quasi-identifier combination</td>
         <td>GDPR Art. 5 (Data Minimization); NIST SP 800-188</td>
       </tr>
       <tr>
         <td>Income + Assets + Debts linkable financial profile</td>
-        <td>Differential Privacy Data Perturbation</td>
+        <td>K-Map & Generalization </td>
         <td>Add calibrated Laplace noise (ε=0.5) to numerical fields before storage or export; round to nearest $500 bracket; apply micro-aggregation (k≥5)</td>
         <td>GDPR Art. 32 (Security); Apple DP whitepaper</td>
       </tr>
       <tr>
         <td>Behavioral fingerprint (Investment Preference + Goal)</td>
-        <td>Pseudonymization with Rotating Tokens</td>
+        <td>l-Diversity, Disclosure Privacy Model, Pseudonymization with Rotating Tokens</td>
         <td>Replace Name with deterministic UUID at ingestion; use HMAC-SHA256(UUID + secret salt) for behavioral logs; decouple behavioral data from identity in storage</td>
         <td>GDPR Art. 4(5) (Pseudonymization); GDPR Art. 25 (Privacy by Design)</td>
       </tr>
@@ -1249,9 +1251,9 @@ Linh HOANG Thuy – Raghavendra Mutyala
       </tr>
 
       <!-- IDENTIFIABILITY (I) -->
-      <tr><td rowspan="4"><b>Identifiability (I)</b></td>
+      <tr><td rowspan="3"><b>Identifiability (I)</b></td>
         <td>Full Name as direct identifier</td>
-        <td>Tokenization with HSM Vault</td>
+        <td>Suprpression & Tokenization with HSM Vault</td>
         <td>Replace Name field with UUID at ingestion; store mapping in HSM-protected vault (HashiCorp Vault / AWS KMS) with role-based access control; audit all vault access</td>
         <td>GDPR Art. 25 (Privacy by Design); OWASP A02:2021</td>
       </tr>
@@ -1261,15 +1263,10 @@ Linh HOANG Thuy – Raghavendra Mutyala
         <td>Store only country or region; suppress sub-national location for populations &lt;10,000; map rare territories to "Other/Small Territory" category</td>
         <td>GDPR Art. 5(1)(c) (Data Minimization)</td>
       </tr>
-      <tr>
-        <td>Professional titles (MD, DDS) in Name field</td>
-        <td>Input Sanitization & Whitelist Validation</td>
-        <td>Strip/normalize honorifics at data entry layer; validate Name field against whitelist (reject Dr., Mrs., MD, DDS); enforce via API schema validation</td>
-        <td>OWASP A03:2021 (Injection)</td>
-      </tr>
+      
       <tr>
         <td>Precise financial values unique fingerprint</td>
-        <td>Numeric Rounding & Micro-Aggregation</td>
+        <td>Generalization, l-Diversity, Privacy Disclosure model, Micro -Aggregation>
         <td>Round Income/Assets/Debts to nearest $100 bracket; apply micro-aggregation (k≥5) for analytics; expose only aggregate statistics, not individual records</td>
         <td>GDPR Art. 32 (Security)</td>
       </tr>
@@ -1577,15 +1574,67 @@ Linh HOANG Thuy – Raghavendra Mutyala
   <div class="ps">Data inventory, RoPA, Privacy Policy, Terms of Use, and Consent Strategy</div>
   <div class="card">
     <h3>📋 7.1 — Data Inventory (PII Spreadsheet)</h3>
-    <div class="tw"><table class="pii-t">
-      <tr><th colspan="2">Personally Identifiable Information (PII)</th><th>Purpose (Legal Basis)</th><th>Retention</th><th>Repository</th></tr>
-      <tr><th style="background:#e3f2fd;color:#0d47a1">Direct Identifiers</th><th style="background:#e3f2fd;color:#0d47a1">Quasi-Identifiers</th><td></td><td></td><td></td></tr>
-      <tr><td>Name (Full name)</td><td>Age, Gender, Location</td><td>Service provision (Contract — Art. 6(1)(b))</td><td>Service duration + 30 days</td><td>User Profile DB</td></tr>
-      <tr><td>—</td><td>Income, Assets, Debts, Monthly Expenses</td><td>Financial advisory (Contract — Art. 6(1)(b))</td><td>Service duration + 90 days</td><td>Profile DB, Backups</td></tr>
-      <tr><td>—</td><td>Investment Pref, Advice Type, Financial Goal</td><td>Personalized advice (Consent — Art. 6(1)(a))</td><td>90 days TTL</td><td>Behavioral Log DB</td></tr>
-      <tr><td>—</td><td>Action, Feedback, Trust Level</td><td>Service improvement (Legitimate interest — Art. 6(1)(f))</td><td>Aggregated only after 90 days</td><td>Log DB, Logfiles</td></tr>
-    </table></div>
+    <div class="tw">
+  <table class="pii-t">
+    <tr>
+      <th colspan="2">Personally Identifiable Information (PII)</th>
+      <th colspan="2">Financial Data</th>
+      <th>Purpose (Legal Basis)</th>
+      <th>Retention</th>
+      <th>Repository</th>
+    </tr>
+    <tr>
+      <th style="background:#e3f2fd;color:#0d47a1">Direct Identifiers</th>
+      <th style="background:#e3f2fd;color:#0d47a1">Quasi-Identifiers</th>
+      <th style="background:#fce4ec;color:#c2185b">Sensitive Financial Data</th>
+      <th style="background:#e8f5e9;color:#2e7d32">Non-Sensitive Financial Data</th>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Name (Full name)</td>
+      <td>Age, Gender, Location</td>
+      <td>—</td>
+      <td>—</td>
+      <td>Service provision (Contract — Art. 6(1)(b))</td>
+      <td>Service duration + 30 days</td>
+      <td>User Profile DB</td>
+    </tr>
+    <tr>
+      <td>—</td>
+      <td>Income, Assets, Debts, Monthly Expenses <br>
+      </td>
+      <td>—</td>
+      <td>—</td>
+      <td>Financial advisory (Contract — Art. 6(1)(b))</td>
+      <td>Service duration + 90 days</td>
+      <td>Profile DB, Backups</td>
+    </tr>
+    <tr>
+      <td>—</td>
+      <td>—</td>
+      <td>Investment Pref, Advice Type, Financial Goal</td>
+      <td>—</td>
+      <td>Personalized advice (Consent — Art. 6(1)(a))</td>
+      <td>90 days TTL</td>
+      <td>Behavioral Log DB</td>
+    </tr>
+    <tr>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>Action, Feedback, Trust Level</td>
+      <td>Service improvement (Legitimate interest — Art. 6(1)(f))</td>
+      <td>Aggregated only after 90 days</td>
+      <td>Log DB, Logfiles</td>
+    </tr>
+  </table>
+</div>
+
   </div>
+
+  
   <div class="card">
     <h3>📝 7.2 — Data Processing Register (RoPA — Art. 30)</h3>
     <div class="tw"><table>
