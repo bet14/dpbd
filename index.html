@@ -1205,16 +1205,137 @@ Linh HOANG Thuy – Raghavendra Mutyala
   <div class="pt">§6 — Privacy Solutions (PETs & Cryptography)</div>
   <div class="ps">Solutions for LINDDUN threats leveraging PETs, Cryptography, and OWASP Top 10</div>
   <div class="card">
-    <h3>Solutions by LINDDUN Threat Category</h3>
+    <h2>Solutions by LINDDUN Threat Category</h2>
     <div class="tw"><table>
-      <tr><th>Threat</th><th>Key PET/Technology Solutions</th><th>Regulatory References</th></tr>
-      <tr><td><b>Linkability</b></td><td><span class="tag tb">k-Anonymity / l-Diversity</span><span class="tag tb">Differential Privacy</span><span class="tag tb">Pseudonymization</span><span class="tag tg2">Zero-Knowledge Proofs</span><span class="tag tg2">Synthetic Data (GAN/VAE)</span></td><td>GDPR Art. 5, 25; NIST SP 800-188</td></tr>
-      <tr><td><b>Identifiability</b></td><td><span class="tag tb">Tokenization</span><span class="tag tb">Secure Multi-Party Computation</span><span class="tag tp">ARX Tool</span><span class="tag to">Geo-Masking</span><span class="tag tr">Data Sanitization</span></td><td>GDPR Art. 25; OWASP A02</td></tr>
-      <tr><td><b>Non-Repudiation</b></td><td><span class="tag tb">Anonymous Credentials</span><span class="tag tg2">Commitment Schemes</span><span class="tag tp">Zero-Knowledge Proofs</span><span class="tag to">Selective Audit Logging</span></td><td>GDPR Art. 17; W3C VC</td></tr>
-      <tr><td><b>Detectability</b></td><td><span class="tag tb">Traffic Padding</span><span class="tag tb">Homomorphic Encryption / ORAM</span><span class="tag tg2">Endpoint Generalization</span><span class="tag tp">Differential Privacy Query Logs</span></td><td>OWASP API Top 10</td></tr>
-      <tr><td><b>Disclosure</b></td><td><span class="tag tb">AES-256-GCM</span><span class="tag tb">Field-Level Encryption</span><span class="tag tg2">Federated Learning</span><span class="tag tp">DP-SGD</span><span class="tag to">TLS 1.3 with ESNI</span></td><td>GDPR Art. 32; PCI-DSS v4.0; OWASP A01,A02</td></tr>
-      <tr><td><b>Unawareness</b></td><td><span class="tag tb">Privacy Transparency Notices</span><span class="tag tg2">Explainable AI Dashboard</span><span class="tag tp">Consent Management Platform</span><span class="tag to">Privacy Dashboard</span></td><td>GDPR Art. 13,15,22; CCPA</td></tr>
-      <tr><td><b>Non-Compliance</b></td><td><span class="tag tb">Record of Processing Activities</span><span class="tag tb">Standard Contractual Clauses</span><span class="tag tg2">Transfer Impact Assessment</span><span class="tag tp">Human-in-the-Loop Review</span><span class="tag to">Data Subject Rights Portal</span></td><td>GDPR Art. 5–22,30; COPPA; GLBA; PCI-DSS</td></tr>
+      <tr><th>Threat</th><th>Key PET/Technology Solutions</th></tr>
+      <tr><td><b>Linkability (L)</b></td><td>
+        <div style="margin-bottom: 12px;">
+          <strong>Hotspots:</strong>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>Quasi-identifiers (Name + Location + Age) enabling profile clustering</li>
+            <li>Financial fingerprints (Income + Assets + Debts) linkable across sessions</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Solutions:</strong>
+          <span class="tag tb">k-Anonymity / l-Diversity</span><span class="tag tb">Differential Privacy</span><span class="tag tb">Pseudonymization</span><span class="tag tg2">Zero-Knowledge Proofs</span><span class="tag tg2">Synthetic Data (GAN/VAE)</span>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>k-Anonymity/l-Diversity: Generalize Age to ranges (18–25, 26–35); coarsen Location to country-level; ensure k≥5</li>
+            <li>Differential Privacy: Add Laplace noise (ε=0.5) to financial fields; round to nearest $500 bracket</li>
+            <li>Pseudonymization: Replace Name with UUID; use HMAC-SHA256 for behavioral logs</li>
+          </ul>
+        </div>
+      </td></tr>
+      <tr><td><b>Identifiability (I)</b></td><td>
+        <div style="margin-bottom: 12px;">
+          <strong>Hotspots:</strong>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>Direct identifiers (Full Name, Email)</li>
+            <li>Rare locations (Bouvet Island, Cocos Islands) creating unique fingerprints</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Solutions:</strong>
+          <span class="tag tb">Tokenization</span><span class="tag tb">Secure Multi-Party Computation</span><span class="tag tp">ARX Tool</span><span class="tag to">Geo-Masking</span><span class="tag tr">Data Sanitization</span>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>Tokenization: Replace Name with UUID; store mapping in HSM vault (HashiCorp Vault/AWS KMS)</li>
+            <li>Location Generalization: Store only country/region; suppress sub-national data for populations &lt;10,000</li>
+            <li>Micro-Aggregation: Round financial values to nearest $100 bracket; aggregate with k≥5</li>
+          </ul>
+        </div>
+      </td></tr>
+      <tr><td><b>Non-Repudiation (N)</b></td><td>
+        <div style="margin-bottom: 12px;">
+          <strong>Hotspots:</strong>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>Permanent compliance logs usable in legal disputes</li>
+            <li>Automated advice decisions without human justification</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Solutions:</strong>
+          <span class="tag tb">Anonymous Credentials</span><span class="tag tg2">Commitment Schemes</span><span class="tag tp">Zero-Knowledge Proofs</span><span class="tag to">Selective Audit Logging</span>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>Selective Audit Logging: Log only anonymized event types (e.g., "ADVICE_GENERATED"); enforce 90-day TTL</li>
+            <li>Explainable AI: Provide decision attribution (SHAP/LIME) showing feature contribution percentages</li>
+            <li>Zero-Knowledge Proofs: Verify eligibility (e.g., "income &gt; $50k") without revealing exact values</li>
+          </ul>
+        </div>
+      </td></tr>
+      <tr><td><b>Detectability (D)</b></td><td>
+        <div style="margin-bottom: 12px;">
+          <strong>Hotspots:</strong>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>API traffic patterns revealing user type (Crypto + High Trust)</li>
+            <li>Endpoint frequency exposing debt distress signals</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Solutions:</strong>
+          <span class="tag tb">Traffic Padding</span><span class="tag tb">Homomorphic Encryption / ORAM</span><span class="tag tg2">Endpoint Generalization</span><span class="tag tp">Differential Privacy Query Logs</span>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>Traffic Padding: Normalize request sizes; inject dummy requests; vary response time ±100ms</li>
+            <li>TLS 1.3 ESNI/ECH: Encrypt SNI; avoid revealing query categories in URLs</li>
+            <li>Anti-Enumeration: Return identical HTTP 200 for existing/non-existing profiles; rate limit (100 req/min)</li>
+          </ul>
+        </div>
+      </td></tr>
+      <tr><td><b>Disclosure (D)</b></td><td>
+        <div style="margin-bottom: 12px;">
+          <strong>Hotspots:</strong>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>Full financial profile in single CSV record</li>
+            <li>Dataset leakage to AI training pipelines</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Solutions:</strong>
+          <span class="tag tb">AES-256-GCM</span><span class="tag tb">Field-Level Encryption</span><span class="tag tg2">Federated Learning</span><span class="tag tp">DP-SGD</span><span class="tag to">TLS 1.3 with ESNI</span>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>Field-Level Encryption: AES-256-GCM for Income/Assets/Debts; separate keys per user; quarterly rotation</li>
+            <li>Data Minimization: Collect only country/region location; opt-in for precise location</li>
+            <li>Federated Learning: Train models in SGX enclaves; transmit only gradients (DP-SGD); never share raw data</li>
+          </ul>
+        </div>
+      </td></tr>
+      <tr><td><b>Unawareness (U)</b></td><td>
+        <div style="margin-bottom: 12px;">
+          <strong>Hotspots:</strong>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>Users unaware of quasi-identifier risks</li>
+            <li>Behavioral profiling affecting credit/insurance silently</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Solutions:</strong>
+          <span class="tag tb">Privacy Transparency Notices</span><span class="tag tg2">Explainable AI Dashboard</span><span class="tag tp">Consent Management Platform</span><span class="tag to">Privacy Dashboard</span>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>Transparency Notices: Inline tooltips at collection explaining privacy risks; link to Privacy Policy</li>
+            <li>Privacy Dashboard: User-accessible view of stored data, inferred attributes, retention periods</li>
+            <li>Automated Data Lifecycle: Define TTLs per field (Active: 5 years; Logs: 90 days); trigger deletion on account closure</li>
+          </ul>
+        </div>
+      </td></tr>
+      <tr><td><b>Non-Compliance (N)</b></td><td>
+        <div style="margin-bottom: 12px;">
+          <strong>Hotspots:</strong>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>Simultaneous collection of all fields (data minimization violation)</li>
+            <li>Plaintext CSV storage (Art. 32 violation)</li>
+            <li>No legal basis documented</li>
+          </ul>
+        </div>
+        <div>
+          <strong>Solutions:</strong>
+          <span class="tag tb">Record of Processing Activities</span><span class="tag tb">Standard Contractual Clauses</span><span class="tag tg2">Transfer Impact Assessment</span><span class="tag tp">Human-in-the-Loop Review</span><span class="tag to">Data Subject Rights Portal</span>
+          <ul style="margin: 8px 0; padding-left: 20px;">
+            <li>Privacy by Design Schema: API validation enforces required-only fields; tag per use case; quarterly audit</li>
+            <li>Encryption at Rest/Transit: AES-256-GCM storage; TLS 1.3 transit; AWS KMS key rotation (quarterly)</li>
+            <li>Record of Processing Activities: Document legal basis per activity; maintain detailed RoPA; quarterly review</li>
+            <li>Data Subject Rights Portal: Self-service endpoints for Access, Erasure, Rectification, Portability, Object, Automated Decision Review (30-day SLA)</li>
+          </ul>
+        </div>
+      </td></tr>
     </table></div>
   </div>
 
